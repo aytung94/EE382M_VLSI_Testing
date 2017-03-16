@@ -1,0 +1,52 @@
+10001 -> 10
+01011 -> 11
+11111 -> 01
+00000 -> 00
+01101 -> 11
+01000 -> 11
+00110 -> 00
+
+List of Undetected Faults:
+Gate 22GAT(10) (PO)  - input0 (22GAT(10)), S_A_1
+Gate 22GAT(10) (PO)  - input0 (22GAT(10)), S_A_0
+Gate 23GAT(9) (PO)  - input0 (23GAT(9)), S_A_1
+Gate 23GAT(9) (PO)  - input0 (23GAT(9)), S_A_0
+Gate 22GAT(10) (NAND)- output, S_A_1
+Gate 22GAT(10) (NAND)- output, S_A_0
+Gate 22GAT(10) (NAND)- input1 ([85]), S_A_1
+Gate 22GAT(10) (NAND)- input0 ([81]), S_A_1
+Gate 23GAT(9) (NAND)- output, S_A_1
+Gate 23GAT(9) (NAND)- output, S_A_0
+Gate 23GAT(9) (NAND)- input1 ([85]), S_A_1
+Gate 23GAT(9) (NAND)- input0 ([83]), S_A_1
+Gate [85] (NAND)- output, S_A_1
+Gate [85] (NAND)- output, S_A_0
+Gate [85] (NAND)- input1 (2GAT(1)), S_A_1
+Gate [85] (NAND)- input0 ([78]), S_A_1
+Gate [83] (NAND)- output, S_A_1
+Gate [83] (NAND)- output, S_A_0
+Gate [83] (NAND)- input1 (7GAT(4)), S_A_1
+Gate [83] (NAND)- input0 ([78]), S_A_1
+Gate [81] (NAND)- output, S_A_1
+Gate [81] (NAND)- output, S_A_0
+Gate [81] (NAND)- input1 (3GAT(2)), S_A_1
+Gate [81] (NAND)- input0 (1GAT(0)), S_A_1
+Gate [78] (NAND)- output, S_A_1
+Gate [78] (NAND)- output, S_A_0
+Gate [78] (NAND)- input1 (6GAT(3)), S_A_1
+Gate [78] (NAND)- input0 (3GAT(2)), S_A_1
+Gate 1GAT(0) (PI)  - output, S_A_1
+Gate 1GAT(0) (PI)  - output, S_A_0
+Gate 2GAT(1) (PI)  - output, S_A_1
+Gate 2GAT(1) (PI)  - output, S_A_0
+Gate 7GAT(4) (PI)  - output, S_A_1
+Gate 7GAT(4) (PI)  - output, S_A_0
+Gate 6GAT(3) (PI)  - output, S_A_1
+Gate 6GAT(3) (PI)  - output, S_A_0
+Gate 3GAT(2) (PI)  - output, S_A_1
+Gate 3GAT(2) (PI)  - output, S_A_0
+
+Total Number of Faults = 38
+Number of Undetected Faults = 38
+Fault Coverage = 0.0%
+
