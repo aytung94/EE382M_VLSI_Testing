@@ -34,7 +34,7 @@ typedef enum gate_type_enum gate_type_t;
 enum gate_type_enum {
   AND, OR, NAND, NOR, INV, BUF, PO_GND, PO_VCC, PI, PO, UNKNOWN
 };
-
+// 0    1   2     3    4    5      6       7    8    9    10
 typedef struct pattern_struct pattern_t;
 struct pattern_struct {
   int len;                 /* num. of pattern to be simulated */
@@ -50,6 +50,8 @@ struct fault_list_struct {
                          /* (>= 0)  points to gate input where the fault is */
   stuck_val_t type;      /* type of stuck-at fault */
   fault_list_t *next;    /* next gate in list (NULL ptr if end of list) */
+  int concur_out;        /* corresponding concurrent gate output value */
+  int fanout;
 };
 
 typedef struct gate_struct gate_t;
@@ -62,7 +64,8 @@ struct gate_struct {
   int *fanout;                /* array of indices of fanout gates */
   int in_val[MAX_GATE_FANIN];     /* store input values of gate */
   int out_val;                    /* store output value of gate */  
-  gate_t *faulty_gates;
+  fault_list_t faulty_gates[MAX_FAULTS]; /* faulty gate list */
+  int num_faulty_gates;
 };
 
 typedef struct circuit_struct circuit_t;

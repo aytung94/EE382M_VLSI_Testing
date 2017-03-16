@@ -7,7 +7,6 @@
 /* Macro Definitions */
 
 #define compute_INV(result,val) \
-  { \
     switch (val) { \
     case LOGIC_0: \
       result = LOGIC_1; \
@@ -20,8 +19,7 @@
       break; \
     default: \
       assert(0); \
-    } \
-  }
+    } 
 
 #define compute_AND(result,val1,val2) \
     switch (val1) { \
@@ -38,9 +36,8 @@
     default: \
       assert(0); \
     } 
-
+    
 #define compute_OR(result,val1,val2) \
-  { \
     switch (val1) { \
     case LOGIC_1: \
       result = LOGIC_1; \
@@ -54,8 +51,7 @@
       break; \
     default: \
       assert(0); \
-    } \
-  }
+    } 
 
 #define evaluate(gate) \
   { \
@@ -93,6 +89,61 @@
       assert(0); \
     } \
   }
+  
+#define evaluate_diff(gate, val0, val1, temp, diff) \
+  { \
+    switch( gate->type ) { \
+    case PI: \
+      break; \
+    case PO: \
+    case BUF: \
+      diff = (gate->out_val != val0); \
+      break; \
+    case PO_GND: \
+      diff = 0; \
+      break; \
+    case PO_VCC: \
+      diff = 0; \
+      break; \
+    case INV: \
+      compute_INV(temp,val0); \
+      diff = (gate->out_val != temp); \
+      break; \
+    case AND: \
+      compute_AND(temp,val0,val1); \
+      diff = (gate->out_val != temp); \
+      break; \
+    case NAND: \
+      compute_AND(temp,val0,val1); \
+      compute_INV(temp,temp); \
+      diff = (gate->out_val != temp); \
+      break; \
+    case OR: \
+      compute_OR(temp,val0,val1); \
+      diff = (gate->out_val != temp); \
+      break; \
+    case NOR: \
+      compute_OR(temp,val0,val1); \
+      compute_INV(temp,temp); \
+      diff = (gate->out_val != temp); \
+      break; \
+    default: \
+      assert(0); \
+      break; \
+    } \
+  }  
+  
+#define assign_fault(cur, io, saf, co, fo) \
+  { \
+    cur->faulty_gates[cur->num_faulty_gates].gate_index = cur->index; \
+    cur->faulty_gates[cur->num_faulty_gates].input_index = io; \
+    cur->faulty_gates[cur->num_faulty_gates].type = saf; \
+    cur->faulty_gates[cur->num_faulty_gates].next = NULL; \
+    cur->faulty_gates[cur->num_faulty_gates].concur_out = co; \
+    cur->faulty_gates[cur->num_faulty_gates].fanout = fo; \
+    cur->num_faulty_gates++; \
+    printf("+"); \
+  }            
 
 #define print_fault_list_t(flist) \
   { \
@@ -132,19 +183,32 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   printf("Gate Information\n");
   for(int i = 0; i < ckt->ngates; i++)
   {
-    gate_t cur = ckt->gate[i];
-    if((int)cur.type >= AND && (int)cur.type <= NOR)
-    {  
-      printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d,%d\n\n", cur.name, cur.index, (int)cur.type, cur.fanin[0], cur.fanin[1]);
-    }
-    else if((int)cur.type == INV || (int)cur.type == BUF)
+    gate_t* cur = &ckt->gate[i];
+    switch(cur->type)
     {
-      printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n\n", cur.name, cur.index, (int)cur.type, cur.fanin[0]);
+      case AND:
+      case OR:
+      case NAND:
+      case NOR:
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d,%d\n-InpVal: %d,%d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->fanin[1], cur->in_val[0], cur->in_val[1], cur->out_val);
+        break;
+      case INV:
+      case BUF:
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->in_val[0], cur->out_val);
+        break;
+      case PI:
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->out_val);     
+        break;
+      case PO:
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->in_val[0]);
+        break;
+      case PO_GND:
+      case PO_VCC:
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0]);      
+        break;
+      default:
+        assert(0);
     }   
-    else if((int)cur.type == PI)
-    {
-       printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n\n", cur.name, cur.index, (int)cur.type, cur.fanin[0]);
-    }
   }
   
   printf("Fault List Information\n");
@@ -165,7 +229,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   
   /* loop through all patterns */
   for (p = 0; p < pat->len; p++) {
-    /* initialize all gate values to UNDEFINED */
+    /* initialize all gate values to UNDEFINED TODO UNNECESSARY*/
     for (i = 0; i < ckt->ngates; i++) {
       ckt->gate[i].in_val[0] = UNDEFINED;
       ckt->gate[i].in_val[1] = UNDEFINED;
@@ -181,6 +245,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       switch ( ckt->gate[i].type ) {
       /* gates with no input terminal */
       case PI:
+        ckt->gate[i].num_faulty_gates = 0;
       case PO_GND:
       case PO_VCC:
 	break;
@@ -208,11 +273,216 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     for (i = 0; i < ckt->npo; i++) {
       pat->out[p][i] = ckt->gate[ckt->po[i]].out_val;
     }
-  }
+//  }
     
   /********************/
   /* fault simulation */
   /********************/
     
+//  int pat_len = pat->len;
+  int ckt_ngates = ckt->ngates;
+  gate_t *gate = ckt->gate;   
+//  for(int p = 0; p < pat_len; p++)
+//  { 
+    printf("\nPATTERN: %d\n", p);      
+    for(int g = 0; g < ckt_ngates; g++)
+    {           
+      // Check input gates for bad gate lists
+      gate_t* cur = &ckt->gate[g];
+      gate_t* inp0;
+      gate_t* inp1;        
+      cur->num_faulty_gates = 0;
+      int val0; 
+      int val1;
+      int temp;
+      int diff;  
+      
+      printf("Gate: %d\n", cur->index);
+      
+      switch(cur->type)
+      {
+        // one input gate
+        case INV:
+        case BUF:
+        case PO:
+          inp0 = &ckt->gate[cur->fanin[0]];
+          for(int fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          {
+            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);              
+            if(diff)
+            {
+              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
+              cur->num_faulty_gates++;    
+              printf("+");
+            }           
+          }  
+          printf("-First Input Gate Check\n");          
+          break;          
+        // two input gate
+        case AND:
+        case OR:
+        case NAND:
+        case NOR: 
+          inp0 = &ckt->gate[cur->fanin[0]];
+          inp1 = &ckt->gate[cur->fanin[1]];
+          for(int fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          {
+            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
+            if(diff)
+            {
+              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
+              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+              cur->num_faulty_gates++;              
+              printf("+");
+            }
+          }           
+          printf("-First Input Gate Check\n");                  
+          for(int fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
+          {
+            // TODO SEARCH FOR SAME FAULT to combine
+            evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                
+            if(diff)
+            {
+              cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
+              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
+              cur->num_faulty_gates++;
+              printf("+");
+            }
+          }
+          printf("-Second Input Gate Check\n");                         
+          break;
+        // no input gate
+        case PI:          
+        case PO_GND:
+        case PO_VCC:   
+          break;
+        default:
+          assert(0);
+      }    
+      
+      // Check inputs for faults                        
+      if((cur->type >= (int)AND && cur->type <= (int)BUF) || cur->type == (int)PO)
+      {                        
+        printf("-First Input Check (%d)\n", cur->in_val[0]);
+        switch(cur->in_val[0])
+        {
+          case LOGIC_0:
+            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 0, S_A_1, temp, 0);
+              printf("--S@1 fault\n");
+            }    
+            break;
+          case LOGIC_1:
+            evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 0, S_A_0, temp, 0);     
+              printf("--S@0 fault\n");              
+            }    
+            break;
+          case LOGIC_X:
+            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 0, S_A_1, temp, 0);                
+              printf("--S@1 fault\n");              
+            }         
+            evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 0, S_A_0, temp, 0);                
+              printf("--S@0 fault\n");              
+            }          
+            break;
+          default:
+            assert(0);
+            break;            
+        }
+      }  
+
+      // FOR 2 inputs
+      if(cur->type >= (int)AND && cur->type <= (int)NOR)
+      {  
+        printf("-Second Input Check (%d)\n", cur->in_val[1]);
+        switch(cur->in_val[1])
+        {
+          case LOGIC_0:
+            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 1, S_A_1, temp, 0);
+              printf("--S@1 fault\n");              
+            }    
+            break;
+          case LOGIC_1:
+            evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 1, S_A_0, temp, 0);    
+              printf("--S@0 fault\n");
+            }    
+            break;
+          case LOGIC_X:
+            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 1, S_A_1, temp, 0);
+              printf("--S@1 fault\n");
+            }         
+            evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
+            if(diff)
+            {
+              assign_fault(cur, 1, S_A_0, temp, 0);                
+              printf("--S@0 fault\n");
+            }           
+            break;
+          default:
+            assert(0);
+            break;            
+        }      
+      }
+      
+      // FOR output
+      if(cur->type >= (int)AND && cur->type <= (int)BUF || cur->type == (int)PI)
+      {               
+        printf("-Output Check (%d)\n", cur->out_val);    
+        switch(cur->out_val)
+        {
+          case LOGIC_0:
+            assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
+            printf("--S@1 fault\n");            
+            break;
+          case LOGIC_1:
+            assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1));
+            printf("--S@0 fault\n");                         
+            break;
+          case LOGIC_X:
+            assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
+            printf("--S@1fault\n");                        
+            assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1)); 
+            printf("--S@0fault\n");                         
+            break;
+          default:
+            assert(0);
+            break;
+        }
+      }
+    }
+    
+    // check fault list
+    for(int i = 0; i < ckt->ngates; i++)
+    {
+      gate_t* cur = &ckt->gate[i];
+      printf("gate: %d (num_faulty: %d)\n", i, cur->num_faulty_gates);
+      for(int j = 0; j < cur->num_faulty_gates; j++)
+      {
+        printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, (int)cur->faulty_gates[j].type);
+      }
+    }    
+  }
+  
   return(undetected_flist);
 }
