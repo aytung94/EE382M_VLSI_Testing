@@ -167,6 +167,19 @@
       current = current->next; \
     } \
   } 
+
+#define search(find_me, in_this, found, count) \
+  { \
+    found = 0; \
+    for(count = 0; count < in_this->num_faulty_gates; count++) \
+    { \
+      if(find_me.gate_index == in_this->faulty_gates[count].gate_index && find_me.input_index == in_this->faulty_gates[count].input_index && find_me.type == in_this->faulty_gates[count].type) \
+      { \
+         found = 1; \
+         break; \
+      } \
+    } \
+  }  
   
 /*************************************************************************
 
@@ -314,6 +327,9 @@ if(!done)
       int val1;
       int temp;
       int diff;  
+      int found;
+      int inp0_fcount;
+      int inp1_fcount;
       
 #if (PRINT == 1)       
       printf("Gate: %d\n", cur->index);
@@ -351,33 +367,84 @@ if(!done)
           inp1 = &ckt->gate[cur->fanin[1]];
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
-            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
-            if(diff)
+            // TODO SEARCH FOR SAME FAULT to combine
+            if(inp0->faulty_gates[fcount].fanout)
             {
-              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
-              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-              cur->num_faulty_gates++;              
+              search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
+              if(found){
+                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, inp1->faulty_gates[inp1_fcount].concur_out, temp, diff);
+                if(diff)
+                {
+                  cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                  cur->num_faulty_gates++;
+                }
+              }
+              else{
+                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
+                if(diff)
+                {
+                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                  cur->num_faulty_gates++;              
 #if (PRINT == 1)                               
-              printf("+");
+                  printf("+");
+#endif                            
+                }
+              }
+            }   
+            else
+            {              
+              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
+              if(diff)
+              {
+                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
+                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                cur->num_faulty_gates++;              
+#if (PRINT == 1)                               
+                printf("+");
 #endif          
+              }
             }
           }           
 #if (PRINT == 1)                           
           printf("-First Input Gate Check\n");                  
 #endif      
           for(fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
-          {
+          {  
             // TODO SEARCH FOR SAME FAULT to combine
-            evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                
-            if(diff)
+            if(inp1->faulty_gates[fcount].fanout)
             {
-              cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
-              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
-              cur->num_faulty_gates++;
+              search(inp1->faulty_gates[fcount], inp0, found, inp0_fcount);
+              if(found){
+                // do nothing
+              }
+              else{
+                evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                  
+                if(diff)
+                {
+                  cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];   
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                  cur->num_faulty_gates++;              
 #if (PRINT == 1)                               
-              printf("+");
-#endif          
+                  printf("+");
+#endif           
+                }
+              }
             }
+            else
+            {      
+              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                
+              if(diff)
+              {
+                cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
+                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
+                cur->num_faulty_gates++;
+#if (PRINT == 1)                               
+                printf("+");
+#endif           
+              }
+            }              
           }
 #if (PRINT == 1)                           
           printf("-Second Input Gate Check\n");                         
