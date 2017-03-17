@@ -300,8 +300,9 @@ if(!done)
 
 #if (PRINT == 1)
     printf("\nPATTERN: %d\n", p);      
-#endif    
-    for(int g = 0; g < ckt_ngates; g++)
+#endif  
+    int g;
+    for(g = 0; g < ckt_ngates; g++)
     {           
       // Check input gates for bad gate lists
       gate_t* cur = &ckt->gate[g];
@@ -347,7 +348,8 @@ if(!done)
         case NOR: 
           inp0 = &ckt->gate[cur->fanin[0]];
           inp1 = &ckt->gate[cur->fanin[1]];
-          for(int fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          int fcount;
+          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
             evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
             if(diff)
@@ -363,7 +365,7 @@ if(!done)
 #if (PRINT == 1)                           
           printf("-First Input Gate Check\n");                  
 #endif      
-          for(int fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
           {
             // TODO SEARCH FOR SAME FAULT to combine
             evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                
