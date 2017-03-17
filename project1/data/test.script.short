@@ -1,0 +1,7 @@
+./3fsim c1908.blif c1908.pat c1908.out
+diff c1908.out c1908.gold.out
+./3fsim c7552.blif c7552.pat c7552.out
+diff c7552.out c7552.gold.out
+./3fsim c2670.blif c2670.pat c2670.out
+diff c2670.out c2670.gold.out
+
