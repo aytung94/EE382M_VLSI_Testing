@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#define PRINT 0
+#define PRINT 1
 
 /* Macro Definitions */
 

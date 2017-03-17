@@ -1,0 +1,16 @@
+10001 -> 00
+01011 -> 00
+11111 -> 11
+00000 -> 00
+01101 -> 00
+01000 -> 00
+00110 -> 00
+11100 -> 00
+
+List of Undetected Faults:
+(Empty)
+
+Total Number of Faults = 38
+Number of Undetected Faults = 0
+Fault Coverage = 100.0%
+

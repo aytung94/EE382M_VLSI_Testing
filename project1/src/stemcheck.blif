@@ -1,0 +1,12 @@
+.model and
+.inputs a b c g
+.outputs h
+.names a b d
+11 1
+.names b c e
+11 1
+.names d e f
+11 1
+.names f g h
+11 1
+.end
