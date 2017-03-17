@@ -302,6 +302,7 @@ if(!done)
     printf("\nPATTERN: %d\n", p);      
 #endif  
     int g;
+    int fcount;
     for(g = 0; g < ckt_ngates; g++)
     {           
       // Check input gates for bad gate lists
@@ -324,7 +325,7 @@ if(!done)
         case BUF:
         case PO:
           inp0 = &ckt->gate[cur->fanin[0]];
-          for(int fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
             evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);              
             if(diff)
@@ -348,7 +349,6 @@ if(!done)
         case NOR: 
           inp0 = &ckt->gate[cur->fanin[0]];
           inp1 = &ckt->gate[cur->fanin[1]];
-          int fcount;
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
             evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
@@ -511,10 +511,12 @@ if(!done)
 #endif    
     
     // check all 
-    for(int o = 0; o < ckt->npo; o++)
+    int o;
+    int f;
+    for(o = 0; o < ckt->npo; o++)
     {
       gate_t* out = &(ckt->gate[ckt->po[o]]);
-      for(int f = out->num_faulty_gates - 1; f >= 0; f--)
+      for(f = out->num_faulty_gates - 1; f >= 0; f--)
       {
           fault_list_t* cur_fault = undetected_flist;
           fault_list_t* prev_fault = NULL;
