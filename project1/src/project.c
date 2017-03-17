@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#define PRINT 1
+#define PRINT 0
 
 /* Macro Definitions */
 
@@ -133,6 +133,19 @@
     } \
   }  
   
+#if (PRINT == 1)  
+#define print_assign_fault(saf) \
+  {\
+    printf("+"); \
+    if(saf == LOGIC_0) \
+      printf("--S@0 fault\n"); \
+    else \
+      printf("--S@1 fault\n"); \
+  }
+#else
+#define print_assign_fault(saf)
+#endif
+  
 #define assign_fault(cur, io, saf, co, fo) \
   { \
     cur->faulty_gates[cur->num_faulty_gates].gate_index = cur->index; \
@@ -142,7 +155,7 @@
     cur->faulty_gates[cur->num_faulty_gates].concur_out = co; \
     cur->faulty_gates[cur->num_faulty_gates].fanout = fo; \
     cur->num_faulty_gates++; \
-    printf("+"); \
+    print_assign_fault(saf); \
   }            
 
 #define print_fault_list_t(flist) \
@@ -220,6 +233,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   
   int p;  /* looping variable for pattern number */
   int i;
+  int done = 0;
   
   /*************************/
   /* fault-free simulation */
@@ -278,13 +292,15 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   /********************/
   /* fault simulation */
   /********************/
-    
+if(!done)  
+{
 //  int pat_len = pat->len;
   int ckt_ngates = ckt->ngates;
   gate_t *gate = ckt->gate;   
-//  for(int p = 0; p < pat_len; p++)
-//  { 
+
+#if (PRINT == 1)
     printf("\nPATTERN: %d\n", p);      
+#endif    
     for(int g = 0; g < ckt_ngates; g++)
     {           
       // Check input gates for bad gate lists
@@ -297,8 +313,9 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       int temp;
       int diff;  
       
+#if (PRINT == 1)       
       printf("Gate: %d\n", cur->index);
-      
+#endif      
       switch(cur->type)
       {
         // one input gate
@@ -314,10 +331,14 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
               cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
               cur->num_faulty_gates++;    
+#if (PRINT == 1)                     
               printf("+");
+#endif          
             }           
           }  
+#if (PRINT == 1)                 
           printf("-First Input Gate Check\n");          
+#endif      
           break;          
         // two input gate
         case AND:
@@ -334,10 +355,14 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
               cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
               cur->num_faulty_gates++;              
+#if (PRINT == 1)                               
               printf("+");
+#endif          
             }
           }           
+#if (PRINT == 1)                           
           printf("-First Input Gate Check\n");                  
+#endif      
           for(int fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
           {
             // TODO SEARCH FOR SAME FAULT to combine
@@ -347,10 +372,14 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
               cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
               cur->num_faulty_gates++;
+#if (PRINT == 1)                               
               printf("+");
+#endif          
             }
           }
+#if (PRINT == 1)                           
           printf("-Second Input Gate Check\n");                         
+#endif      
           break;
         // no input gate
         case PI:          
@@ -363,8 +392,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       
       // Check inputs for faults                        
       if((cur->type >= (int)AND && cur->type <= (int)BUF) || cur->type == (int)PO)
-      {                        
+      {    
+#if (PRINT == 1)                   
         printf("-First Input Check (%d)\n", cur->in_val[0]);
+#endif    
         switch(cur->in_val[0])
         {
           case LOGIC_0:
@@ -372,7 +403,6 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 0, S_A_1, temp, 0);
-              printf("--S@1 fault\n");
             }    
             break;
           case LOGIC_1:
@@ -380,7 +410,6 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 0, S_A_0, temp, 0);     
-              printf("--S@0 fault\n");              
             }    
             break;
           case LOGIC_X:
@@ -388,13 +417,11 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 0, S_A_1, temp, 0);                
-              printf("--S@1 fault\n");              
             }         
             evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
             if(diff)
             {
               assign_fault(cur, 0, S_A_0, temp, 0);                
-              printf("--S@0 fault\n");              
             }          
             break;
           default:
@@ -406,7 +433,9 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       // FOR 2 inputs
       if(cur->type >= (int)AND && cur->type <= (int)NOR)
       {  
+#if (PRINT == 1)  
         printf("-Second Input Check (%d)\n", cur->in_val[1]);
+#endif    
         switch(cur->in_val[1])
         {
           case LOGIC_0:
@@ -414,7 +443,6 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 1, S_A_1, temp, 0);
-              printf("--S@1 fault\n");              
             }    
             break;
           case LOGIC_1:
@@ -422,7 +450,6 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 1, S_A_0, temp, 0);    
-              printf("--S@0 fault\n");
             }    
             break;
           case LOGIC_X:
@@ -430,13 +457,11 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             if(diff)
             {
               assign_fault(cur, 1, S_A_1, temp, 0);
-              printf("--S@1 fault\n");
             }         
             evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
             if(diff)
             {
               assign_fault(cur, 1, S_A_0, temp, 0);                
-              printf("--S@0 fault\n");
             }           
             break;
           default:
@@ -448,22 +473,20 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       // FOR output
       if(cur->type >= (int)AND && cur->type <= (int)BUF || cur->type == (int)PI)
       {               
+#if (PRINT == 1)    
         printf("-Output Check (%d)\n", cur->out_val);    
+#endif    
         switch(cur->out_val)
         {
           case LOGIC_0:
             assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
-            printf("--S@1 fault\n");            
             break;
           case LOGIC_1:
             assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1));
-            printf("--S@0 fault\n");                         
             break;
           case LOGIC_X:
             assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
-            printf("--S@1fault\n");                        
             assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1)); 
-            printf("--S@0fault\n");                         
             break;
           default:
             assert(0);
@@ -472,6 +495,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       }
     }
     
+#if (PRINT ==1)    
     // check fault list
     for(int i = 0; i < ckt->ngates; i++)
     {
@@ -482,6 +506,37 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, (int)cur->faulty_gates[j].type);
       }
     }    
+#endif    
+    
+    // check all 
+    for(int o = 0; o < ckt->npo; o++)
+    {
+      gate_t* out = &(ckt->gate[ckt->po[o]]);
+      for(int f = out->num_faulty_gates - 1; f >= 0; f--)
+      {
+          fault_list_t* cur_fault = undetected_flist;
+          fault_list_t* prev_fault = NULL;
+          while(cur_fault != NULL)
+          {
+            if(cur_fault->gate_index == out->faulty_gates[f].gate_index && cur_fault->input_index == out->faulty_gates[f].input_index && cur_fault->type == out->faulty_gates[f].type)
+            {
+              if(prev_fault == NULL){
+                undetected_flist = cur_fault->next;
+              }
+              else{
+                prev_fault->next = cur_fault->next;
+              }
+            }
+            cur_fault = cur_fault->next;
+          }
+      }
+    }
+    
+    if(undetected_flist == NULL)
+    {
+      done;
+    }
+}
   }
   
   return(undetected_flist);
