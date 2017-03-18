@@ -11,6 +11,10 @@
 11 1
 .names d h g
 11 1
-.names g h c
+.names g h i
+11 1
+.names e i j
+11 1
+.names i j c
 11 1
 .end
