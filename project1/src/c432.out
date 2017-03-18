@@ -85,9 +85,53 @@
 111111120012201220122012201220122012 -> 1111100
 
 List of Undetected Faults:
-(Empty)
+Gate [654] (OR)  - input0 ([1156]), S_A_0
+Gate [148] (AND) - input1 ([1054]), S_A_1
+Gate [1076] (NAND)- input0 ([1204]), S_A_1
+Gate [1088] (NAND)- input0 ([1216]), S_A_1
+Gate [1054] (NAND)- output, S_A_1
+Gate [1190] (OR)  - input1 ([974]), S_A_0
+Gate [1188] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1186] (OR)  - input1 ([968]), S_A_0
+Gate [1184] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1198] (OR)  - input1 ([986]), S_A_0
+Gate [1196] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1194] (OR)  - input1 ([980]), S_A_0
+Gate [1192] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1206] (OR)  - input1 ([998]), S_A_0
+Gate [1204] (NAND)- output, S_A_1
+Gate [1204] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1202] (OR)  - input1 ([992]), S_A_0
+Gate [1200] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1218] (OR)  - input1 ([1016]), S_A_0
+Gate [1216] (NAND)- output, S_A_1
+Gate [1216] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [1214] (OR)  - input1 ([1010]), S_A_0
+Gate [1212] (NAND)- input0 (329GAT(133)), S_A_1
+Gate [65] (NOR) - input1 ([1004]), S_A_0
+Gate [64] (AND) - input0 (329GAT(133)), S_A_1
+Gate [998] (INV) - output, S_A_0
+Gate [1016] (INV) - output, S_A_0
+Gate [1226] (OR)  - input1 ([825]), S_A_0
+Gate [1224] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1222] (OR)  - input1 ([817]), S_A_0
+Gate [1220] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1234] (OR)  - input1 ([841]), S_A_0
+Gate [1232] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1230] (OR)  - input1 ([833]), S_A_0
+Gate [1228] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1242] (OR)  - input1 ([857]), S_A_0
+Gate [1240] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1238] (OR)  - input1 ([849]), S_A_0
+Gate [1236] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1254] (OR)  - input1 ([881]), S_A_0
+Gate [1252] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1250] (OR)  - input1 ([873]), S_A_0
+Gate [1248] (NAND)- input0 (223GAT(84)), S_A_1
+Gate [1246] (OR)  - input1 ([865]), S_A_0
+Gate [1244] (NAND)- input0 (223GAT(84)), S_A_1
 
 Total Number of Faults = 998
-Number of Undetected Faults = 0
-Fault Coverage = 100.0%
+Number of Undetected Faults = 45
+Fault Coverage = 95.4%
 

@@ -51,7 +51,7 @@ struct fault_list_struct {
   stuck_val_t type;      /* type of stuck-at fault */
   fault_list_t *next;    /* next gate in list (NULL ptr if end of list) */
   int concur_out;        /* corresponding concurrent gate output value */
-  int fanout;
+  int mark;
 };
 
 typedef struct gate_struct gate_t;

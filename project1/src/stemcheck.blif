@@ -1,12 +1,16 @@
 .model and
-.inputs a b c g
-.outputs h
-.names a b d
+.inputs a b 
+.outputs c
+.names a a d
 11 1
-.names b c e
+.names b b e
 11 1
 .names d e f
 11 1
-.names f g h
+.names f e h
+11 1
+.names d h g
+11 1
+.names g h c
 11 1
 .end

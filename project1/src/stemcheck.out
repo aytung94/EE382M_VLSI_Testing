@@ -1,9 +1,29 @@
-1111 -> 1
+11 -> 1
 
 List of Undetected Faults:
-(Empty)
+Gate c (PO)  - input0 (c), S_A_1
+Gate c (AND) - output, S_A_1
+Gate c (AND) - input1 (h), S_A_1
+Gate c (AND) - input0 (g), S_A_1
+Gate g (AND) - output, S_A_1
+Gate g (AND) - input1 (h), S_A_1
+Gate g (AND) - input0 (d), S_A_1
+Gate h (AND) - output, S_A_1
+Gate h (AND) - input1 (e), S_A_1
+Gate h (AND) - input0 (f), S_A_1
+Gate f (AND) - output, S_A_1
+Gate f (AND) - input1 (e), S_A_1
+Gate f (AND) - input0 (d), S_A_1
+Gate e (AND) - output, S_A_1
+Gate e (AND) - input1 (b), S_A_1
+Gate e (AND) - input0 (b), S_A_1
+Gate d (AND) - output, S_A_1
+Gate d (AND) - input1 (a), S_A_1
+Gate d (AND) - input0 (a), S_A_1
+Gate b (PI)  - output, S_A_1
+Gate a (PI)  - output, S_A_1
 
-Total Number of Faults = 26
-Number of Undetected Faults = 0
-Fault Coverage = 100.0%
+Total Number of Faults = 30
+Number of Undetected Faults = 21
+Fault Coverage = 30.0%
 

@@ -94,6 +94,7 @@
   { \
     switch( gate->type ) { \
     case PI: \
+      diff = 0; \
       break; \
     case PO: \
     case BUF: \
@@ -146,14 +147,14 @@
 #define print_assign_fault(saf)
 #endif
   
-#define assign_fault(cur, io, saf, co, fo) \
+#define assign_fault(cur, io, saf, co, m) \
   { \
     cur->faulty_gates[cur->num_faulty_gates].gate_index = cur->index; \
     cur->faulty_gates[cur->num_faulty_gates].input_index = io; \
     cur->faulty_gates[cur->num_faulty_gates].type = saf; \
     cur->faulty_gates[cur->num_faulty_gates].next = NULL; \
     cur->faulty_gates[cur->num_faulty_gates].concur_out = co; \
-    cur->faulty_gates[cur->num_faulty_gates].fanout = fo; \
+    cur->faulty_gates[cur->num_faulty_gates].mark = m; \
     cur->num_faulty_gates++; \
     print_assign_fault(saf); \
   }            
@@ -368,7 +369,7 @@ if(!done)
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
             // TODO SEARCH FOR SAME FAULT to combine
-            if(inp0->faulty_gates[fcount].fanout)
+            if(1)//inp0->faulty_gates[fcount].fanout)
             {
               search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
               if(found){
@@ -385,6 +386,9 @@ if(!done)
                   cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
                   cur->num_faulty_gates++;
                 }      
+                
+                // if found, mark seen
+                inp1->faulty_gates[inp1_fcount].mark = 1;
               }
               else{
                 evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
@@ -419,9 +423,9 @@ if(!done)
           for(fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
           {  
             // TODO SEARCH FOR SAME FAULT to combine
-            if(inp1->faulty_gates[fcount].fanout)
+            if(inp1->faulty_gates[fcount].mark)//inp1->faulty_gates[fcount].fanout)
             {
-              search(inp1->faulty_gates[fcount], inp0, found, inp0_fcount);
+              /*search(inp1->faulty_gates[fcount], inp0, found, inp0_fcount);
               if(found){
                 // do nothing
 #if (PRINT == 1)
@@ -439,7 +443,8 @@ if(!done)
                   printf("+");
 #endif           
                 }
-              }
+              }*/
+              // do nothing if marked!!
             }
             else
             {      
@@ -499,8 +504,8 @@ if(!done)
             evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
             if(diff)
             {
-              assign_fault(cur, 0, S_A_0, temp, 0);                
-            }          
+              assign_fault(cur, 0, S_A_0, temp, 0); 
+            }  
             break;
           default:
             assert(0);
@@ -557,14 +562,14 @@ if(!done)
         switch(cur->out_val)
         {
           case LOGIC_0:
-            assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
+            assign_fault(cur, -1, S_A_1, 1, 0);
             break;
           case LOGIC_1:
-            assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1));
+            assign_fault(cur, -1, S_A_0, 0, 0);
             break;
           case LOGIC_X:
-            assign_fault(cur, -1, S_A_1, 1, (cur->num_fanout > 1));
-            assign_fault(cur, -1, S_A_0, 0, (cur->num_fanout > 1)); 
+            assign_fault(cur, -1, S_A_1, 1, 0);
+            assign_fault(cur, -1, S_A_0, 0, 0); 
             break;
           default:
             assert(0);
@@ -601,11 +606,15 @@ if(!done)
             if(cur_fault->gate_index == out->faulty_gates[f].gate_index && cur_fault->input_index == out->faulty_gates[f].input_index && cur_fault->type == out->faulty_gates[f].type)
             {
               if(prev_fault == NULL){
-                undetected_flist = cur_fault->next;
+                undetected_flist = cur_fault->next;                
               }
               else{
-                prev_fault->next = cur_fault->next;
+                prev_fault->next = cur_fault->next;                         
               }
+            }   
+            else
+            {
+              prev_fault = cur_fault;
             }
             cur_fault = cur_fault->next;
           }
