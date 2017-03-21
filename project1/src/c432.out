@@ -86,6 +86,14 @@
 
 List of Undetected Faults:
 Gate [654] (OR)  - input0 ([1156]), S_A_0
+Gate [145] (AND) - input0 ([1117]), S_A_1
+Gate [169] (AND) - input0 ([1121]), S_A_1
+Gate [1117] (NAND)- output, S_A_1
+Gate [1121] (NAND)- output, S_A_1
+Gate [260] (NOR) - input1 (351GAT(157)), S_A_0
+Gate [264] (NOR) - input1 (348GAT(160)), S_A_0
+Gate 351GAT(157) (AND) - output, S_A_0
+Gate 348GAT(160) (AND) - output, S_A_0
 Gate [148] (AND) - input1 ([1054]), S_A_1
 Gate [1076] (NAND)- input0 ([1204]), S_A_1
 Gate [1088] (NAND)- input0 ([1216]), S_A_1
@@ -112,6 +120,10 @@ Gate [65] (NOR) - input1 ([1004]), S_A_0
 Gate [64] (AND) - input0 (329GAT(133)), S_A_1
 Gate [998] (INV) - output, S_A_0
 Gate [1016] (INV) - output, S_A_0
+Gate [384] (AND) - input1 ([565]), S_A_1
+Gate 290GAT(113) (AND) - output, S_A_0
+Gate 263GAT(119) (AND) - output, S_A_0
+Gate [565] (NAND)- output, S_A_1
 Gate [1226] (OR)  - input1 ([825]), S_A_0
 Gate [1224] (NAND)- input0 (223GAT(84)), S_A_1
 Gate [1222] (OR)  - input1 ([817]), S_A_0
@@ -130,8 +142,11 @@ Gate [1250] (OR)  - input1 ([873]), S_A_0
 Gate [1248] (NAND)- input0 (223GAT(84)), S_A_1
 Gate [1246] (OR)  - input1 ([865]), S_A_0
 Gate [1244] (NAND)- input0 (223GAT(84)), S_A_1
+Gate 188GAT(69) (NOR) - output, S_A_0
+Gate 158GAT(78) (NOR) - output, S_A_0
+Gate 187GAT(70) (NOR) - output, S_A_0
 
 Total Number of Faults = 998
-Number of Undetected Faults = 45
-Fault Coverage = 95.4%
+Number of Undetected Faults = 60
+Fault Coverage = 93.9%
 

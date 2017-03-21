@@ -12,7 +12,7 @@
 #define MAX_GATES	 100000
 #define MAX_PO		 2000
 #define MAX_PI		 2000
-#define MAX_FAULTS	 600000//1000000
+#define MAX_FAULTS	 60000//1000000
 
 #define WORD_SIZE 32
 

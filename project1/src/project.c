@@ -98,6 +98,7 @@
       break; \
     case PO: \
     case BUF: \
+      temp = val0; \
       diff = (gate->out_val != val0); \
       break; \
     case PO_GND: \
@@ -269,30 +270,32 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     }
     /* evaluate all gates */
     for (i = 0; i < ckt->ngates; i++) {
+      ckt->gate[i].num_faulty_gates = 0;     
       /* get gate input values */
+
       switch ( ckt->gate[i].type ) {
       /* gates with no input terminal */
       case PI:
-        ckt->gate[i].num_faulty_gates = 0;
-      case PO_GND:
+      //  ckt->gate[i].num_faulty_gates = 0;
+      case PO_GND:        
       case PO_VCC:
-	break;
+	    break;
       /* gates with one input terminal */
       case INV:
       case BUF:
       case PO:
-	ckt->gate[i].in_val[0] = ckt->gate[ckt->gate[i].fanin[0]].out_val;
-	break;
+	    ckt->gate[i].in_val[0] = ckt->gate[ckt->gate[i].fanin[0]].out_val;
+        break;
       /* gates with two input terminals */
       case AND:
       case NAND:
       case OR:
       case NOR:
-	ckt->gate[i].in_val[0] = ckt->gate[ckt->gate[i].fanin[0]].out_val;
-	ckt->gate[i].in_val[1] = ckt->gate[ckt->gate[i].fanin[1]].out_val;
-	break;
+	    ckt->gate[i].in_val[0] = ckt->gate[ckt->gate[i].fanin[0]].out_val;
+    	ckt->gate[i].in_val[1] = ckt->gate[ckt->gate[i].fanin[1]].out_val;
+	    break;
       default:
-	assert(0);
+    	assert(0);
       }
       /* compute gate output value */
       evaluate(ckt->gate[i]);
@@ -391,7 +394,7 @@ if(!done)
                 inp1->faulty_gates[inp1_fcount].mark = 1;
               }
               else{
-                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
+                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
                 if(diff)
                 {
                   cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
@@ -405,7 +408,7 @@ if(!done)
             }   
             else
             {              
-              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                  
+              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff); 
               if(diff)
               {
                 cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
@@ -445,10 +448,11 @@ if(!done)
                 }
               }*/
               // do nothing if marked!!
+              inp1->faulty_gates[fcount].mark = 0;
             }
             else
             {      
-              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                
+              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
               if(diff)
               {
                 cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
@@ -474,7 +478,7 @@ if(!done)
       }    
       
       // Check inputs for faults                        
-      if((cur->type >= (int)AND && cur->type <= (int)BUF) || cur->type == (int)PO)
+      if(((cur->type >= (int)AND && cur->type <= (int)BUF)) || cur->type == (int)PO)
       {    
 #if (PRINT == 1)                   
         printf("-First Input Check (%d)\n", cur->in_val[0]);
@@ -496,7 +500,7 @@ if(!done)
             }    
             break;
           case LOGIC_X:
-            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+/*            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
             if(diff)
             {
               assign_fault(cur, 0, S_A_1, temp, 0);                
@@ -505,7 +509,7 @@ if(!done)
             if(diff)
             {
               assign_fault(cur, 0, S_A_0, temp, 0); 
-            }  
+            }  */
             break;
           default:
             assert(0);
@@ -536,7 +540,7 @@ if(!done)
             }    
             break;
           case LOGIC_X:
-            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+/*            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
             if(diff)
             {
               assign_fault(cur, 1, S_A_1, temp, 0);
@@ -545,7 +549,7 @@ if(!done)
             if(diff)
             {
               assign_fault(cur, 1, S_A_0, temp, 0);                
-            }           
+            }     */      
             break;
           default:
             assert(0);
@@ -554,7 +558,7 @@ if(!done)
       }
       
       // FOR output
-      if(cur->type >= (int)AND && cur->type <= (int)BUF || cur->type == (int)PI)
+      if((cur->type >= (int)AND && cur->type <= (int)BUF) || cur->type == (int)PI)
       {               
 #if (PRINT == 1)    
         printf("-Output Check (%d)\n", cur->out_val);    
@@ -568,8 +572,8 @@ if(!done)
             assign_fault(cur, -1, S_A_0, 0, 0);
             break;
           case LOGIC_X:
-            assign_fault(cur, -1, S_A_1, 1, 0);
-            assign_fault(cur, -1, S_A_0, 0, 0); 
+//            assign_fault(cur, -1, S_A_1, 1, 0);
+//            assign_fault(cur, -1, S_A_0, 0, 0); 
             break;
           default:
             assert(0);
@@ -623,7 +627,7 @@ if(!done)
     
     if(undetected_flist == NULL)
     {
-      done;
+      done == 1;
     }
 }
   }
