@@ -12,7 +12,8 @@
 #define MAX_GATES	     100000
 #define MAX_PO    		 2000
 #define MAX_PI	    	 2000
-#define MAX_FAULTS	     6*MAX_GATES //1000000
+#define MAX_FAULTS	     60000 //1000000
+#define MAX_FAULTSS      1000000
 
 #define ID_GATE_SHF      0
 #define ID_INPT_SHF      30

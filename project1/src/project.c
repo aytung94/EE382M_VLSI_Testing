@@ -183,6 +183,9 @@
     } \
   }  
   
+#define ID1(cur) (cur.gate_index*6 + cur.type*3 + (cur.input_index + 1))
+#define ID2(gi, ct, ii) (gi*6 + ct*3 + (ii + 1))
+
 /*************************************************************************
 
 Function:  three_val_transition_fault_simulate
@@ -255,8 +258,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 
 // TODO: remove all stuck at faults if out is the same, only evaluate if value changes per gate
   
+  int faults_detected[MAX_FAULTS] = {0};
   /* loop through all patterns */
   for (p = 0; p < pat->len; p++) {
+            
     /* initialize all gate values to UNDEFINED TODO UNNECESSARY
     for (i = 0; i < ckt->ngates; i++) {
       ckt->gate[i].in_val[0] = UNDEFINED;
@@ -476,31 +481,43 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         else{
           switch(cur->in_val[0])        
           {
-            case LOGIC_0:
-              evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
-              if(diff)
+            case LOGIC_0:                       
+              if(!faults_detected[ID2(cur->index, S_A_1, 0)])            
               {
-                assign_fault(cur, 0, S_A_1, temp, 0);
-              }    
+                evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+                if(diff)
+                {
+                  assign_fault(cur, 0, S_A_1, temp, 0);
+                }    
+              }
               break;
             case LOGIC_1:
-              evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
-              if(diff)
+              if(!faults_detected[ID2(cur->index, S_A_1, 0)])
               {
-                assign_fault(cur, 0, S_A_0, temp, 0);     
-              }    
+                evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+                if(diff)
+                {
+                  assign_fault(cur, 0, S_A_0, temp, 0);     
+                }
+              }                
               break;
             case LOGIC_X:
-              evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
-              if(diff)
+              if(!faults_detected[ID2(cur->index, S_A_1, 0)])            
+              {            
+                evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+                if(diff)
+                {
+                  assign_fault(cur, 0, S_A_1, temp, 0);                
+                }
+              }
+              if(!faults_detected[ID2(cur->index, S_A_1, 0)])
               {
-                assign_fault(cur, 0, S_A_1, temp, 0);                
-              }         
-              evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
-              if(diff)
-              {
-                assign_fault(cur, 0, S_A_0, temp, 0); 
-              } 
+                evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+                if(diff)
+                {
+                  assign_fault(cur, 0, S_A_0, temp, 0); 
+                } 
+              }
               break;
             default:
               assert(0);
@@ -518,29 +535,41 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         switch(cur->in_val[1])
         {
           case LOGIC_0:
-            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 1, S_A_1, temp, 0);
-            }    
+            if(!faults_detected[ID2(cur->index, S_A_1, 1)])
+            {         
+              evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 1, S_A_1, temp, 0);
+              } 
+            }
             break;
           case LOGIC_1:
-            evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 1, S_A_0, temp, 0);    
-            }    
+            if(!faults_detected[ID2(cur->index, S_A_0, 1)])                    
+            {    
+              evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 1, S_A_0, temp, 0);    
+              }
+            }              
             break;
           case LOGIC_X:
-            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
-            if(diff)
+            if(!faults_detected[ID2(cur->index, S_A_1, 1)])
             {
-              assign_fault(cur, 1, S_A_1, temp, 0);
-            }         
-            evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 1, S_A_0, temp, 0);                
+              evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 1, S_A_1, temp, 0);
+              }          
+            }
+            if(!faults_detected[ID2(cur->index, S_A_0, 1)])                    
+            {                
+              evaluate_diff(cur, cur->in_val[0], LOGIC_0, temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 1, S_A_0, temp, 0);                
+              }
             }
             break;
           default:
@@ -558,13 +587,17 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         switch(cur->out_val)
         {
           case LOGIC_0:
+            if(!faults_detected[ID2(cur->index, S_A_1, -1)])
             assign_fault(cur, -1, S_A_1, 1, 0);
             break;
           case LOGIC_1:
+            if(!faults_detected[ID2(cur->index, S_A_0, -1)])          
             assign_fault(cur, -1, S_A_0, 0, 0);
             break;
           case LOGIC_X:
+            if(!faults_detected[ID2(cur->index, S_A_1, -1)])          
             assign_fault(cur, -1, S_A_1, 1, 0);
+            if(!faults_detected[ID2(cur->index, S_A_0, -1)])                      
             assign_fault(cur, -1, S_A_0, 0, 0); 
             break;
           default:
@@ -605,7 +638,8 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               }
               else{
                 prev_fault->next = cur_fault->next;                         
-              }
+              }              
+              faults_detected[ID1(out->faulty_gates[f])] = 1; // fault dropping             
             }   
             else
             {
