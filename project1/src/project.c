@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#define PRINT 1
+#define PRINT 0
 
 /* Macro Definitions */
 
@@ -209,7 +209,8 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 
 #if (PRINT == 1)
   printf("Gate Information\n");
-  for(int i = 0; i < ckt->ngates; i++)
+  int i;
+  for(i = 0; i < ckt->ngates; i++)
   {
     gate_t* cur = &ckt->gate[i];
     switch(cur->type)
@@ -607,11 +608,13 @@ if(!done)
     
 #if (PRINT ==1)    
     // check fault list
-    for(int i = 0; i < ckt->ngates; i++)
+    int i;
+    int j;
+    for(i = 0; i < ckt->ngates; i++)
     {
       gate_t* cur = &ckt->gate[i];
       printf("gate: %d (num_faulty: %d)\n", i, cur->num_faulty_gates);
-      for(int j = 0; j < cur->num_faulty_gates; j++)
+      for(j = 0; j < cur->num_faulty_gates; j++)
       {
         printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, (int)cur->faulty_gates[j].type);
       }
