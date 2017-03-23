@@ -81,6 +81,7 @@ Gate [70] (NOR) - output, S_A_0
 Gate [70] (NOR) - input1 (j), S_A_0
 Gate [70] (NOR) - input0 (h), S_A_0
 Gate [350] (OR)  - input1 (j), S_A_0
+Gate [341] (OR)  - input1 (i), S_A_0
 Gate [239] (NAND)- output, S_A_1
 Gate [239] (NAND)- output, S_A_0
 Gate [239] (NAND)- input1 (e), S_A_1
@@ -88,6 +89,7 @@ Gate [239] (NAND)- input0 (d), S_A_1
 Gate [139] (AND) - output, S_A_0
 Gate [139] (AND) - input1 (j), S_A_1
 Gate [143] (NOR) - output, S_A_0
+Gate [143] (NOR) - input1 (b), S_A_0
 Gate [143] (NOR) - input0 (a), S_A_0
 Gate [151] (NOR) - output, S_A_0
 Gate [151] (NOR) - input1 (h), S_A_0
@@ -98,9 +100,11 @@ Gate [154] (NOR) - input1 (b), S_A_0
 Gate [154] (NOR) - input0 (a), S_A_0
 Gate [220] (OR)  - input0 (h), S_A_0
 Gate [107] (AND) - input1 (j), S_A_1
+Gate [110] (NOR) - input1 (b), S_A_0
 Gate [110] (NOR) - input0 (a), S_A_0
 Gate [113] (NOR) - output, S_A_0
 Gate [113] (NOR) - input1 (j), S_A_0
+Gate [113] (NOR) - input0 (i), S_A_0
 Gate [116] (AND) - output, S_A_1
 Gate [116] (AND) - output, S_A_0
 Gate [116] (AND) - input1 (e), S_A_1
@@ -109,10 +113,11 @@ Gate [125] (AND) - input0 (i), S_A_1
 Gate [128] (NOR) - input1 (h), S_A_0
 Gate [202] (NOR) - output, S_A_0
 Gate e (PI)  - output, S_A_1
+Gate e (PI)  - output, S_A_0
 Gate d (PI)  - output, S_A_1
 Gate d (PI)  - output, S_A_0
 
 Total Number of Faults = 272
-Number of Undetected Faults = 85
-Fault Coverage = 68.7%
+Number of Undetected Faults = 90
+Fault Coverage = 66.9%
 

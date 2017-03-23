@@ -346,21 +346,36 @@ if(!done)
         case PO:
           inp0 = &ckt->gate[cur->fanin[0]];
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
-          {
-            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);              
-            if(diff)
-            {
-              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
-              cur->num_faulty_gates++;    
+          {           
+              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                          
+              if(cur->type != PO)
+              {
+              if(diff)
+              {
+                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
+                cur->num_faulty_gates++;    
 #if (PRINT == 1)                     
-              printf("+");
+                printf("+");
 #endif          
-            }           
+              }
+              }
+              else{
+                if(diff && temp != LOGIC_X && cur->out_val != LOGIC_X)
+                {
+                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
+                  cur->num_faulty_gates++;    
+#if (PRINT == 1)                     
+                  printf("+");
+#endif                             
+                }
+              }           
           }  
 #if (PRINT == 1)                 
           printf("-First Input Gate Check\n");          
-#endif      
+#endif                        
+
           break;          
         // two input gate
         case AND:
@@ -375,26 +390,42 @@ if(!done)
             if(1)//inp0->faulty_gates[fcount].fanout)
             {
               search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
-              if(found){
+              if(found){                                
                 evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, inp1->faulty_gates[inp1_fcount].concur_out, temp, diff);
 #if (PRINT == 1) 
-                printf("f");
+                  printf("f");
 #endif                
-                if(diff)
-                {
+                  if(diff)
+                  {
 #if (PRINT == 1)
-                  printf("+");
+                    printf("+");
 #endif                  
-                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                  cur->num_faulty_gates++;
-                }      
-                
+                    cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+                    cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                    cur->num_faulty_gates++;
+                  }                       
                 // if found, mark seen
                 inp1->faulty_gates[inp1_fcount].mark = 1;
               }
-              else{
-                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
+              else{             
+                  evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
+                
+                  if(diff)
+                  {
+                    cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
+                    cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                    cur->num_faulty_gates++;              
+#if (PRINT == 1)                               
+                    printf("+");
+#endif                            
+                  }
+                }              
+            }   
+            // DEADCODE
+            else
+            {                                
+               evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff); 
+              
                 if(diff)
                 {
                   cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
@@ -402,22 +433,8 @@ if(!done)
                   cur->num_faulty_gates++;              
 #if (PRINT == 1)                               
                   printf("+");
-#endif                            
-                }
-              }
-            }   
-            else
-            {              
-              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff); 
-              if(diff)
-              {
-                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
-                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                cur->num_faulty_gates++;              
-#if (PRINT == 1)                               
-                printf("+");
 #endif          
-              }
+                }              
             }
           }           
 #if (PRINT == 1)                           
@@ -451,18 +468,18 @@ if(!done)
               inp1->faulty_gates[fcount].mark = 0;
             }
             else
-            {      
-              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
-              if(diff)
-              {
-                cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
-                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
-                cur->num_faulty_gates++;
+            {               
+                evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
+                if(diff)
+                {
+                  cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
+                  cur->num_faulty_gates++;
 #if (PRINT == 1)                               
-                printf("+");
+                  printf("+");
 #endif           
-              }
-            }              
+                }              
+            }
           }
 #if (PRINT == 1)                           
           printf("-Second Input Gate Check\n");                         
@@ -483,7 +500,12 @@ if(!done)
 #if (PRINT == 1)                   
         printf("-First Input Check (%d)\n", cur->in_val[0]);
 #endif    
-        switch(cur->in_val[0])
+        if(cur->type == (int)PO && cur->in_val[0] == LOGIC_X)
+        {
+          //do nothing
+        }
+        else{
+        switch(cur->in_val[0])        
         {
           case LOGIC_0:
             evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
@@ -500,7 +522,7 @@ if(!done)
             }    
             break;
           case LOGIC_X:
-/*            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
             if(diff)
             {
               assign_fault(cur, 0, S_A_1, temp, 0);                
@@ -509,11 +531,12 @@ if(!done)
             if(diff)
             {
               assign_fault(cur, 0, S_A_0, temp, 0); 
-            }  */
+            } 
             break;
           default:
             assert(0);
             break;            
+        }
         }
       }  
 
@@ -540,7 +563,7 @@ if(!done)
             }    
             break;
           case LOGIC_X:
-/*            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
+            evaluate_diff(cur, cur->in_val[0], LOGIC_1, temp, diff);
             if(diff)
             {
               assign_fault(cur, 1, S_A_1, temp, 0);
@@ -549,7 +572,7 @@ if(!done)
             if(diff)
             {
               assign_fault(cur, 1, S_A_0, temp, 0);                
-            }     */      
+            }
             break;
           default:
             assert(0);
@@ -572,8 +595,8 @@ if(!done)
             assign_fault(cur, -1, S_A_0, 0, 0);
             break;
           case LOGIC_X:
-//            assign_fault(cur, -1, S_A_1, 1, 0);
-//            assign_fault(cur, -1, S_A_0, 0, 0); 
+            assign_fault(cur, -1, S_A_1, 1, 0);
+            assign_fault(cur, -1, S_A_0, 0, 0); 
             break;
           default:
             assert(0);
@@ -608,7 +631,7 @@ if(!done)
           while(cur_fault != NULL)
           {
             if(cur_fault->gate_index == out->faulty_gates[f].gate_index && cur_fault->input_index == out->faulty_gates[f].input_index && cur_fault->type == out->faulty_gates[f].type)
-            {
+            {              
               if(prev_fault == NULL){
                 undetected_flist = cur_fault->next;                
               }
