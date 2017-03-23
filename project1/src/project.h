@@ -9,10 +9,14 @@
 
 #define MAX_GATE_FANIN   2
 #define MAX_PATTERNS     100000
-#define MAX_GATES	 100000
-#define MAX_PO		 2000
-#define MAX_PI		 2000
-#define MAX_FAULTS	 60000//1000000
+#define MAX_GATES	     100000
+#define MAX_PO    		 2000
+#define MAX_PI	    	 2000
+#define MAX_FAULTS	     1000000
+
+#define ID_GATE_SHF      0
+#define ID_INPT_SHF      30
+#define ID_TYPE_SHF      29
 
 #define WORD_SIZE 32
 
@@ -44,7 +48,7 @@ struct pattern_struct {
 
 typedef struct fault_list_struct fault_list_t;  /* linked list of faults */
 struct fault_list_struct {
-
+  int id;
   int gate_index;        /* index of gate where fault is */
   int input_index;       /* (== -1) if fault at gate output */
                          /* (>= 0)  points to gate input where the fault is */
