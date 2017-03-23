@@ -165,7 +165,7 @@
     fault_list_t *current = undetected_flist; \
     while(current != NULL) \
     { \
-      printf("%d.%d/%d\n", current->gate_index, current->input_index, (int)current->type); \
+      printf("%d.%d/%d\n", current->gate_index, current->input_index, current->type); \
       current = current->next; \
     } \
   } 
@@ -206,10 +206,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   /**************************/
   /* print gate information */
   /**************************/
+  int i;
 
 #if (PRINT == 1)
   printf("Gate Information\n");
-  int i;
   for(i = 0; i < ckt->ngates; i++)
   {
     gate_t* cur = &ckt->gate[i];
@@ -219,21 +219,21 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       case OR:
       case NAND:
       case NOR:
-        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d,%d\n-InpVal: %d,%d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->fanin[1], cur->in_val[0], cur->in_val[1], cur->out_val);
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d,%d\n-InpVal: %d,%d\n-OutVal: %d\n\n", cur->name, cur->index, cur->type, cur->fanin[0], cur->fanin[1], cur->in_val[0], cur->in_val[1], cur->out_val);
         break;
       case INV:
       case BUF:
-        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->in_val[0], cur->out_val);
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n-OutVal: %d\n\n", cur->name, cur->index, cur->type, cur->fanin[0], cur->in_val[0], cur->out_val);
         break;
       case PI:
-        printf("Name: %s\n-Index: %d\n-Gate: %d\n-OutVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->out_val);     
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-OutVal: %d\n\n", cur->name, cur->index, cur->type, cur->out_val);     
         break;
       case PO:
-        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0], cur->in_val[0]);
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n-InpVal: %d\n\n", cur->name, cur->index, cur->type, cur->fanin[0], cur->in_val[0]);
         break;
       case PO_GND:
       case PO_VCC:
-        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n\n", cur->name, cur->index, (int)cur->type, cur->fanin[0]);      
+        printf("Name: %s\n-Index: %d\n-Gate: %d\n-Inputs: %d\n\n", cur->name, cur->index, cur->type, cur->fanin[0]);      
         break;
       default:
         assert(0);
@@ -241,14 +241,12 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   }
   
   printf("Fault List Information\n");
-  print_fault_list_t(undetected_flist);
-  
+  print_fault_list_t(undetected_flist);  
 #endif
 
   /* put your code here */
   
   int p;  /* looping variable for pattern number */
-  int i;
   int done = 0;
   
   /*************************/
@@ -259,16 +257,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   
   /* loop through all patterns */
   for (p = 0; p < pat->len; p++) {
-    /* initialize all gate values to UNDEFINED TODO UNNECESSARY*/
+    /* initialize all gate values to UNDEFINED TODO UNNECESSARY
     for (i = 0; i < ckt->ngates; i++) {
       ckt->gate[i].in_val[0] = UNDEFINED;
       ckt->gate[i].in_val[1] = UNDEFINED;
       ckt->gate[i].out_val = UNDEFINED;
-    }
-    /* assign primary input values for pattern */
+    }*/
+    /* assign primary input values for pattern 
     for (i = 0; i < ckt->npi; i++) {
       ckt->gate[ckt->pi[i]].out_val = pat->in[p][i];
-    }
+    }*/
     /* evaluate all gates */
     for (i = 0; i < ckt->ngates; i++) {
       ckt->gate[i].num_faulty_gates = 0;     
@@ -277,6 +275,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       switch ( ckt->gate[i].type ) {
       /* gates with no input terminal */
       case PI:
+        ckt->gate[ckt->pi[i]].out_val = pat->in[p][i];      
       //  ckt->gate[i].num_faulty_gates = 0;
       case PO_GND:        
       case PO_VCC:
@@ -310,31 +309,37 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   /********************/
   /* fault simulation */
   /********************/
-if(!done)  
-{
-//  int pat_len = pat->len;
-  int ckt_ngates = ckt->ngates;
-  gate_t *gate = ckt->gate;   
-
+  if(!done)  
+  {
+  //  int pat_len = pat->len;
+    int ckt_ngates = ckt->ngates;
+    int ckt_npo = ckt->npo;
+    gate_t *gate = ckt->gate;   
+ 
 #if (PRINT == 1)
-    printf("\nPATTERN: %d\n", p);      
+  printf("\nPATTERN: %d\n", p);      
 #endif  
+
     int g;
     int fcount;
-    for(g = 0; g < ckt_ngates; g++)
-    {           
-      // Check input gates for bad gate lists
-      gate_t* cur = &ckt->gate[g];
+    gate_t* cur;
       gate_t* inp0;
       gate_t* inp1;        
-      cur->num_faulty_gates = 0;
+      //cur->num_faulty_gates = 0;
       int val0; 
       int val1;
       int temp;
       int diff;  
       int found;
       int inp0_fcount;
-      int inp1_fcount;
+      int inp1_fcount;   
+    int o;
+    int f;
+    
+    for(g = 0; g < ckt_ngates; g++)
+    {           
+      // Check input gates for bad gate lists
+      cur = &ckt->gate[g];
       
 #if (PRINT == 1)       
       printf("Gate: %d\n", cur->index);
@@ -344,39 +349,43 @@ if(!done)
         // one input gate
         case INV:
         case BUF:
-        case PO:
           inp0 = &ckt->gate[cur->fanin[0]];
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {           
-              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                          
-              if(cur->type != PO)
-              {
-              if(diff)
-              {
-                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
-                cur->num_faulty_gates++;    
+            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                          
+            if(diff)
+            {
+              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
+              cur->num_faulty_gates++;    
 #if (PRINT == 1)                     
-                printf("+");
-#endif          
-              }
-              }
-              else{
-                if(diff && temp != LOGIC_X && cur->out_val != LOGIC_X)
-                {
-                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
-                  cur->num_faulty_gates++;    
-#if (PRINT == 1)                     
-                  printf("+");
-#endif                             
-                }
-              }           
+              printf("+");
+#endif         
+            }                    
           }  
 #if (PRINT == 1)                 
           printf("-First Input Gate Check\n");          
 #endif                        
 
+          break;         
+        case PO:
+          inp0 = &ckt->gate[cur->fanin[0]];
+          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          {           
+            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                                        
+            if(diff && temp != LOGIC_X && cur->out_val != LOGIC_X)
+            {
+              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
+              cur->num_faulty_gates++;    
+#if (PRINT == 1)                     
+              printf("+");
+#endif                             
+            }                       
+          }  
+#if (PRINT == 1)                 
+          printf("-First Input Gate Check\n");          
+#endif                        
           break;          
         // two input gate
         case AND:
@@ -388,55 +397,37 @@ if(!done)
           for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
           {
             // TODO SEARCH FOR SAME FAULT to combine
-            if(1)//inp0->faulty_gates[fcount].fanout)
-            {
-              search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
-              if(found){                                
-                evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, inp1->faulty_gates[inp1_fcount].concur_out, temp, diff);
+            search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
+            if(found){                                
+              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, inp1->faulty_gates[inp1_fcount].concur_out, temp, diff);
 #if (PRINT == 1) 
-                  printf("f");
+                printf("f");
 #endif                
-                  if(diff)
-                  {
-#if (PRINT == 1)
-                    printf("+");
-#endif                  
-                    cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-                    cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                    cur->num_faulty_gates++;
-                  }                       
-                // if found, mark seen
-                inp1->faulty_gates[inp1_fcount].mark = 1;
-              }
-              else{             
-                  evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
-                
-                  if(diff)
-                  {
-                    cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
-                    cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                    cur->num_faulty_gates++;              
-#if (PRINT == 1)                               
-                    printf("+");
-#endif                            
-                  }
-                }              
-            }   
-            // DEADCODE
-            else
-            {                                
-               evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff); 
-              
                 if(diff)
                 {
-                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                  cur->num_faulty_gates++;              
-#if (PRINT == 1)                               
+#if (PRINT == 1)
                   printf("+");
-#endif          
-                }              
+#endif                  
+                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
+                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                  cur->num_faulty_gates++;
+                }                       
+                // if found, mark seen
+              inp1->faulty_gates[inp1_fcount].mark = 1;
             }
+            else{             
+              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
+                
+              if(diff)
+              {
+                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
+                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
+                cur->num_faulty_gates++;              
+#if (PRINT == 1)                               
+                printf("+");
+#endif                            
+              }
+            }                          
           }           
 #if (PRINT == 1)                           
           printf("-First Input Gate Check\n");                  
@@ -444,43 +435,20 @@ if(!done)
           for(fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
           {  
             // TODO SEARCH FOR SAME FAULT to combine
-            if(inp1->faulty_gates[fcount].mark)//inp1->faulty_gates[fcount].fanout)
-            {
-              /*search(inp1->faulty_gates[fcount], inp0, found, inp0_fcount);
-              if(found){
-                // do nothing
-#if (PRINT == 1)
-                printf("f-");
-#endif                
-              }
-              else{
-                evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff);                  
-                if(diff)
-                {
-                  cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];   
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                  cur->num_faulty_gates++;              
+            if(!inp1->faulty_gates[fcount].mark)//inp1->faulty_gates[fcount].fanout)
+            {              
+              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
+              if(diff)
+              {
+                cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
+                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
+                cur->num_faulty_gates++;
 #if (PRINT == 1)                               
-                  printf("+");
+                printf("+");
 #endif           
-                }
-              }*/
-              // do nothing if marked!!
-              inp1->faulty_gates[fcount].mark = 0;
+              }              
             }
-            else
-            {               
-                evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
-                if(diff)
-                {
-                  cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
-                  cur->num_faulty_gates++;
-#if (PRINT == 1)                               
-                  printf("+");
-#endif           
-                }              
-            }
+            inp1->faulty_gates[fcount].mark = 0;            
           }
 #if (PRINT == 1)                           
           printf("-Second Input Gate Check\n");                         
@@ -496,53 +464,53 @@ if(!done)
       }    
       
       // Check inputs for faults                        
-      if(((cur->type >= (int)AND && cur->type <= (int)BUF)) || cur->type == (int)PO)
+      if(((cur->type >= AND && cur->type <= BUF)) || cur->type == PO)
       {    
 #if (PRINT == 1)                   
         printf("-First Input Check (%d)\n", cur->in_val[0]);
 #endif    
-        if(cur->type == (int)PO && cur->in_val[0] == LOGIC_X)
+        if(cur->type == PO && cur->in_val[0] == LOGIC_X)
         {
           //do nothing
         }
         else{
-        switch(cur->in_val[0])        
-        {
-          case LOGIC_0:
-            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 0, S_A_1, temp, 0);
-            }    
-            break;
-          case LOGIC_1:
-            evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 0, S_A_0, temp, 0);     
-            }    
-            break;
-          case LOGIC_X:
-            evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 0, S_A_1, temp, 0);                
-            }         
-            evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
-            if(diff)
-            {
-              assign_fault(cur, 0, S_A_0, temp, 0); 
-            } 
-            break;
-          default:
-            assert(0);
-            break;            
-        }
+          switch(cur->in_val[0])        
+          {
+            case LOGIC_0:
+              evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 0, S_A_1, temp, 0);
+              }    
+              break;
+            case LOGIC_1:
+              evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 0, S_A_0, temp, 0);     
+              }    
+              break;
+            case LOGIC_X:
+              evaluate_diff(cur, LOGIC_1, cur->in_val[1], temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 0, S_A_1, temp, 0);                
+              }         
+              evaluate_diff(cur, LOGIC_0, cur->in_val[1], temp, diff);
+              if(diff)
+              {
+                assign_fault(cur, 0, S_A_0, temp, 0); 
+              } 
+              break;
+            default:
+              assert(0);
+              break;            
+          }
         }
       }  
 
       // FOR 2 inputs
-      if(cur->type >= (int)AND && cur->type <= (int)NOR)
+      if(cur->type >= AND && cur->type <= NOR)
       {  
 #if (PRINT == 1)  
         printf("-Second Input Check (%d)\n", cur->in_val[1]);
@@ -582,7 +550,7 @@ if(!done)
       }
       
       // FOR output
-      if((cur->type >= (int)AND && cur->type <= (int)BUF) || cur->type == (int)PI)
+      if((cur->type >= AND && cur->type <= BUF) || cur->type == PI)
       {               
 #if (PRINT == 1)    
         printf("-Output Check (%d)\n", cur->out_val);    
@@ -608,7 +576,6 @@ if(!done)
     
 #if (PRINT ==1)    
     // check fault list
-    int i;
     int j;
     for(i = 0; i < ckt->ngates; i++)
     {
@@ -616,15 +583,13 @@ if(!done)
       printf("gate: %d (num_faulty: %d)\n", i, cur->num_faulty_gates);
       for(j = 0; j < cur->num_faulty_gates; j++)
       {
-        printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, (int)cur->faulty_gates[j].type);
+        printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, cur->faulty_gates[j].type);
       }
     }    
 #endif    
     
     // check all 
-    int o;
-    int f;
-    for(o = 0; o < ckt->npo; o++)
+    for(o = 0; o < ckt_npo; o++)
     {
       gate_t* out = &(ckt->gate[ckt->po[o]]);
       for(f = out->num_faulty_gates - 1; f >= 0; f--)
@@ -649,13 +614,14 @@ if(!done)
             cur_fault = cur_fault->next;
           }
       }
+      if(undetected_flist == NULL)
+      {
+        done == 1;
+        break;
+      }      
     }
     
-    if(undetected_flist == NULL)
-    {
-      done == 1;
-    }
-}
+  }
   }
   
   return(undetected_flist);
