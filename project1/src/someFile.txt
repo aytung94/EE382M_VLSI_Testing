@@ -1,3 +1,22 @@
 
 Reading Circuit:  ../data/c432.blif
 
+Circuit Parsed and Built successfully
+
+Reading Patterns:  ../data/c432.pat
+
+Number of PI = 36
+Number of PO = 7
+Number of gates = 287
+Number of faults = 998
+Number of patterns = 85
+
+Running Simulation...
+
+Finished Simulation.
+
+Simulation Time = 0.015625 sec
+
+
+Writing Output:  c432.out
+

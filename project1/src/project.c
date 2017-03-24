@@ -197,7 +197,33 @@
   
 #define ID1(cur) (cur.gate_index*6 + cur.type*3 + (cur.input_index + 1))
 #define ID2(gi, ct, ii) (gi*6 + ct*3 + (ii + 1))
+/*
+fault_list_t *add_fault(flist,gate_index,input_index,type)
+     fault_list_t *flist;
+     int gate_index;
+     int input_index;
+     stuck_val_t type;
+{
+  fault_list_t *new_fault;
 
+  
+  //if (fcount >= 5000) {
+  //  return (flist);
+  //}
+ 
+  new_fault = (fault_list_t *)malloc(sizeof(fault_list_t));
+  new_fault->gate_index = gate_index;
+  new_fault->input_index = input_index;
+  new_fault->type = type;
+  new_fault->next = flist;
+  return(new_fault);
+}
+
+  fault_array = (fault_list_t **)malloc(num_faults*sizeof(fault_list_t *));
+  for (i = 0,ptr = flist; i < num_faults; i++,ptr=ptr->next) {
+    fault_array[i] = ptr;
+  }
+*/
 /*************************************************************************
 
 Function:  three_val_transition_fault_simulate
@@ -271,6 +297,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 // TODO: remove all stuck at faults if out is the same, only evaluate if value changes per gate
   
   int faults_detected[MAX_FAULTS] = {0};
+  int faults[MAX_GATES*6] = {0};
   /* loop through all patterns */
   for (p = 0; p < pat->len; p++) {
             
