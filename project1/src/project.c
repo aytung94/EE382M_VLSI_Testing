@@ -1,8 +1,9 @@
 #include "project.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
-#define PRINT 0
+#define PRINT 1
 
 /* Macro Definitions */
 
@@ -148,27 +149,32 @@
 #define print_assign_fault(saf)
 #endif
   
-#define assign_fault(cur, io, saf, co, m) \
+#define ID1(cur) (cur.gate_index*6 + cur.type*3 + (cur.input_index + 1))
+#define ID2(gi, ii, ft) (gi*6 + ft*3 + (ii + 1))  
+  
+#define assign_fault(faults, gi, io, saf, co, m) \
   { \
-    cur->faulty_gates[cur->num_faulty_gates].gate_index = cur->index; \
-    cur->faulty_gates[cur->num_faulty_gates].input_index = io; \
-    cur->faulty_gates[cur->num_faulty_gates].type = saf; \
-    cur->faulty_gates[cur->num_faulty_gates].next = NULL; \
-    cur->faulty_gates[cur->num_faulty_gates].concur_out = co; \
-    cur->faulty_gates[cur->num_faulty_gates].mark = m; \
-    cur->num_faulty_gates++; \
+    fault_list_t* fault = &(faults[gi][faults_number[gi]]); \
+    fault->gate_index = gi; \
+    fault->input_index = io; \
+    fault->type = saf; \
+    fault->next = NULL; \
+    fault->concur_out = co; \
+    fault->mark = m; \
+    faults_number[gi]++; \
     print_assign_fault(saf); \
   }            
 
-#define assign_fault_to(cur, io, saf, co, m, append_to_me_ind) \
+#define assign_fault_to(faults, gi, io, saf, co, m, append_to_me_ind) \
    { \
-    cur->faulty_gates[cur->num_faulty_gates].gate_index = cur->index; \
-    cur->faulty_gates[cur->num_faulty_gates].input_index = io; \
-    cur->faulty_gates[cur->num_faulty_gates].type = saf; \
-    cur->faulty_gates[cur->num_faulty_gates].next = NULL; \
-    cur->faulty_gates[cur->num_faulty_gates].concur_out = co; \
-    cur->faulty_gates[cur->num_faulty_gates].mark = m; \
-    cur->num_faulty_gates++; \
+    fault_list_t* fault = &faults[gi][faults_number[gi]]; \
+    fault->gate_index = gi; \
+    fault->input_index = io; \
+    fault->type = saf; \
+    fault->next = NULL; \
+    fault->concur_out = co; \
+    fault->mark = m; \
+    faults_number[gi]++; \
     print_assign_fault(saf); \
   } 
   
@@ -185,9 +191,9 @@
 #define search(find_me, in_this, found, count) \
   { \
     found = 0; \
-    for(count = 0; count < in_this->num_faulty_gates; count++) \
+    for(count = 0; count < faults_number[in_this->index]; count++) \
     { \
-      if(find_me.gate_index == in_this->faulty_gates[count].gate_index && find_me.input_index == in_this->faulty_gates[count].input_index && find_me.type == in_this->faulty_gates[count].type) \
+      if(ID1(find_me) == ID1(faults[in_this->index][count])) \
       { \
          found = 1; \
          break; \
@@ -195,35 +201,6 @@
     } \
   }  
   
-#define ID1(cur) (cur.gate_index*6 + cur.type*3 + (cur.input_index + 1))
-#define ID2(gi, ct, ii) (gi*6 + ct*3 + (ii + 1))
-/*
-fault_list_t *add_fault(flist,gate_index,input_index,type)
-     fault_list_t *flist;
-     int gate_index;
-     int input_index;
-     stuck_val_t type;
-{
-  fault_list_t *new_fault;
-
-  
-  //if (fcount >= 5000) {
-  //  return (flist);
-  //}
- 
-  new_fault = (fault_list_t *)malloc(sizeof(fault_list_t));
-  new_fault->gate_index = gate_index;
-  new_fault->input_index = input_index;
-  new_fault->type = type;
-  new_fault->next = flist;
-  return(new_fault);
-}
-
-  fault_array = (fault_list_t **)malloc(num_faults*sizeof(fault_list_t *));
-  for (i = 0,ptr = flist; i < num_faults; i++,ptr=ptr->next) {
-    fault_array[i] = ptr;
-  }
-*/
 /*************************************************************************
 
 Function:  three_val_transition_fault_simulate
@@ -237,6 +214,8 @@ the input patterns in pat.in[][].
 Return:  List of faults that remain undetected.
 
 *************************************************************************/
+
+fault_list_t faults[MAX_GATES][MAX_GATES];
 
 fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
      circuit_t *ckt;
@@ -297,8 +276,31 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 // TODO: remove all stuck at faults if out is the same, only evaluate if value changes per gate
   
   int faults_detected[MAX_FAULTS] = {0};
-  int faults[MAX_GATES*6] = {0};
+  int faults_number[MAX_GATES] = {0};
+  
+  /*
+  if((faults = (fault_list_t**)malloc(sizeof(fault_list_t*)*MAX_GATES)) != NULL)
+  {
+    printf("faults initialized started!\n");     
+    for(i = 0; i < MAX_GATES; i++)
+    {
+      if((faults[i] = (fault_list_t*)malloc(sizeof(fault_list_t)*MAX_FAULTS)) != NULL)
+      {
+        printf(".\n");
+      }
+      else
+      {
+        printf("faults array initializeation stuckat %d!\n", i);          
+      }
+    }
+  }
+  else
+  {
+  }
+  */
   /* loop through all patterns */
+  
+  
   for (p = 0; p < pat->len; p++) {
             
     /* initialize all gate values to UNDEFINED TODO UNNECESSARY
@@ -313,14 +315,13 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     }*/
     /* evaluate all gates */
     for (i = 0; i < ckt->ngates; i++) {
-      ckt->gate[i].num_faulty_gates = 0;     
+      faults_number[i] = 0;     
       /* get gate input values */
 
       switch ( ckt->gate[i].type ) {
       /* gates with no input terminal */
       case PI:
         ckt->gate[ckt->pi[i]].out_val = pat->in[p][i];      
-      //  ckt->gate[i].num_faulty_gates = 0;
       case PO_GND:        
       case PO_VCC:
 	    break;
@@ -353,8 +354,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
   /********************/
   /* fault simulation */
   /********************/
+ 
   if(!done)  
   {
+     
   //  int pat_len = pat->len;
     int ckt_ngates = ckt->ngates;
     int ckt_npo = ckt->npo;
@@ -379,9 +382,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       int inp1_fcount;   
     int o;
     int f;
-    
+   
     for(g = 0; g < ckt_ngates; g++)
     {           
+
       // Check input gates for bad gate lists
       cur = &ckt->gate[g];
       
@@ -394,14 +398,14 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         case INV:
         case BUF:
           inp0 = &ckt->gate[cur->fanin[0]];
-          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < faults_number[inp0->index]; fcount++)
           {           
-            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                          
+            evaluate_diff(cur, faults[inp0->index][fcount].concur_out, cur->in_val[1], temp, diff);                          
             if(diff)
             {
-              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
-              cur->num_faulty_gates++;    
+              faults[cur->index][faults_number[cur->index]] = faults[inp0->index][fcount];
+              faults[cur->index][faults_number[cur->index]].concur_out = temp;              
+              faults_number[cur->index]++;    
 #if (PRINT == 1)                     
               printf("+");
 #endif         
@@ -414,14 +418,14 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
           break;         
         case PO:
           inp0 = &ckt->gate[cur->fanin[0]];
-          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < faults_number[inp0->index]; fcount++)
           {           
-            evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);                                        
+            evaluate_diff(cur, faults[inp0->index][fcount].concur_out, cur->in_val[1], temp, diff);                                
             if(diff && temp != LOGIC_X && cur->out_val != LOGIC_X)
             {
-              cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-              cur->faulty_gates[cur->num_faulty_gates].concur_out = temp; 
-              cur->num_faulty_gates++;    
+              faults[cur->index][faults_number[cur->index]] = faults[inp0->index][fcount];       
+              faults[cur->index][faults_number[cur->index]].concur_out = temp;              
+              faults_number[cur->index]++;    
 #if (PRINT == 1)                     
               printf("+");
 #endif                             
@@ -438,35 +442,35 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         case NOR: 
           inp0 = &ckt->gate[cur->fanin[0]];
           inp1 = &ckt->gate[cur->fanin[1]];
-          for(fcount = 0; fcount < inp0->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < faults_number[inp0->index]; fcount++)
           {
             // TODO SEARCH FOR SAME FAULT to combine
-            search(inp0->faulty_gates[fcount], inp1, found, inp1_fcount);
-            if(found){                                
-              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, inp1->faulty_gates[inp1_fcount].concur_out, temp, diff);
+            search(faults[inp0->index][fcount], inp1, found, inp1_fcount);
+            if(found){  
+              evaluate_diff(cur, faults[inp0->index][fcount].concur_out, faults[inp1->index][fcount].concur_out, temp, diff);                                          
 #if (PRINT == 1) 
-                printf("f");
+              printf("f");
 #endif                
-                if(diff)
-                {
+              if(diff)
+              {
 #if (PRINT == 1)
-                  printf("+");
+                printf("+");
 #endif                  
-                  cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];
-                  cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                  cur->num_faulty_gates++;
-                }                       
-                // if found, mark seen
-              inp1->faulty_gates[inp1_fcount].mark = 1;
+                faults[cur->index][faults_number[cur->index]] = faults[inp0->index][fcount];       
+                faults[cur->index][faults_number[cur->index]].concur_out = temp;              
+                faults_number[cur->index]++;    
+              }                       
+              // if found, mark seen
+              faults[inp1->index][inp1_fcount].mark = 1;
             }
             else{             
-              evaluate_diff(cur, inp0->faulty_gates[fcount].concur_out, cur->in_val[1], temp, diff);    
+              evaluate_diff(cur, faults[inp0->index][fcount].concur_out, cur->in_val[1], temp, diff);    
                 
               if(diff)
               {
-                cur->faulty_gates[cur->num_faulty_gates] = inp0->faulty_gates[fcount];   
-                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;
-                cur->num_faulty_gates++;              
+                faults[cur->index][faults_number[cur->index]] = faults[inp0->index][fcount];       
+                faults[cur->index][faults_number[cur->index]].concur_out = temp;              
+                faults_number[cur->index]++;         
 #if (PRINT == 1)                               
                 printf("+");
 #endif                            
@@ -476,23 +480,23 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 #if (PRINT == 1)                           
           printf("-First Input Gate Check\n");                  
 #endif      
-          for(fcount = 0; fcount < inp1->num_faulty_gates; fcount++)
+          for(fcount = 0; fcount < faults_number[inp1->index]; fcount++)
           {  
             // TODO SEARCH FOR SAME FAULT to combine
-            if(!inp1->faulty_gates[fcount].mark)//inp1->faulty_gates[fcount].fanout)
+            if(!faults[inp1->index][fcount].mark)//inp1->faulty_gates[fcount].fanout)
             {              
-              evaluate_diff(cur, cur->in_val[0], inp1->faulty_gates[fcount].concur_out, temp, diff); 
+              evaluate_diff(cur, cur->in_val[0], faults[inp1->index][fcount].concur_out, temp, diff); 
               if(diff)
               {
-                cur->faulty_gates[cur->num_faulty_gates] = inp1->faulty_gates[fcount];
-                cur->faulty_gates[cur->num_faulty_gates].concur_out = temp;              
-                cur->num_faulty_gates++;
+                faults[cur->index][faults_number[cur->index]] = faults[inp1->index][fcount];       
+                (faults[cur->index][faults_number[cur->index]]).concur_out = temp;              
+                faults_number[cur->index]++;        
 #if (PRINT == 1)                               
                 printf("+");
 #endif           
               }              
             }
-            inp1->faulty_gates[fcount].mark = 0;            
+            faults[inp1->index][fcount].mark = 0;            
           }
 #if (PRINT == 1)                           
           printf("-Second Input Gate Check\n");                         
@@ -510,7 +514,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       // prev fault for fault collapsing
       int prev_fault_sa0 = 0;
       int prev_fault_sa1 = 0;
-      
+     
       // FOR output
       if((cur->type >= AND && cur->type <= BUF) || cur->type == PI)
       {               
@@ -522,27 +526,27 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
           case LOGIC_0:
             if(!faults_detected[ID2(cur->index, S_A_1, -1)])
             {
-              prev_fault_sa0 = cur->num_faulty_gates;                
-              assign_fault(cur, -1, S_A_1, 1, 0);        
+              prev_fault_sa0 = faults_number[cur->index];                
+              assign_fault(faults, cur->index, -1, S_A_1, 1, 0);        
             }
             break;
           case LOGIC_1:
             if(!faults_detected[ID2(cur->index, S_A_0, -1)])
             {
-              prev_fault_sa1 = cur->num_faulty_gates;                                
-              assign_fault(cur, -1, S_A_0, 0, 0);
+              prev_fault_sa1 = faults_number[cur->index]; //cur->num_faulty_gates;                                
+              assign_fault(faults, cur->index, -1, S_A_0, 0, 0);
             }
             break;
           case LOGIC_X:
             if(!faults_detected[ID2(cur->index, S_A_1, -1)])     
             {
-              prev_fault_sa1 = cur->num_faulty_gates;                                
-              assign_fault(cur, -1, S_A_1, 1, 0);
+              prev_fault_sa1 = faults_number[cur->index]; //cur->num_faulty_gates;                             
+              assign_fault(faults, cur->index, -1, S_A_1, 1, 0);
             }
             if(!faults_detected[ID2(cur->index, S_A_0, -1)])
             {
-              prev_fault_sa0 = cur->num_faulty_gates;                                
-              assign_fault(cur, -1, S_A_0, 0, 0); 
+              prev_fault_sa0 = faults_number[cur->index]; //cur->num_faulty_gates;                              
+              assign_fault(faults, cur->index, -1, S_A_0, 0, 0); 
             }
             break;
           default:
@@ -550,7 +554,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             break;
         }
       }      
-      
+  
       // Check inputs for faults                        
       if(((cur->type >= AND && cur->type <= BUF)) || cur->type == PO)
       {    
@@ -574,16 +578,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                   {                    
                     if(!prev_fault_sa1)
                     {
-                      assign_fault_to(cur, 0, S_A_1, temp, 0, prev_fault_sa1);
+                      assign_fault_to(faults, cur->index, 0, S_A_1, temp, 0, prev_fault_sa1);
                     }
                     if(!prev_fault_sa0)
                     {
-                      assign_fault_to(cur, 0, S_A_1, temp, 0, prev_fault_sa0);
+                      assign_fault_to(faults, cur->index, 0, S_A_1, temp, 0, prev_fault_sa0);
                     }
                   }                   
                   else
                   {
-                    assign_fault(cur, 0, S_A_1, temp, 0);
+                    assign_fault(faults, cur->index, 0, S_A_1, temp, 0);
                   }
                 }    
               }
@@ -598,16 +602,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                   {                    
                     if(!prev_fault_sa1)
                     {
-                      assign_fault_to(cur, 0, S_A_0, temp, 0, prev_fault_sa1);
+                      assign_fault_to(faults, cur->index, 0, S_A_0, temp, 0, prev_fault_sa1);
                     }
                     if(!prev_fault_sa0)
                     {
-                      assign_fault_to(cur, 0, S_A_0, temp, 0, prev_fault_sa0);
+                      assign_fault_to(faults, cur->index, 0, S_A_0, temp, 0, prev_fault_sa0);
                     }
                   }
                   else
                   {
-                    assign_fault(cur, 0, S_A_0, temp, 0);     
+                    assign_fault(faults, cur->index, 0, S_A_0, temp, 0);     
                   }
                 }
               }                
@@ -622,16 +626,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                   {                    
                     if(!prev_fault_sa1)
                     {
-                      assign_fault_to(cur, 0, S_A_1, temp, 0, prev_fault_sa1);
+                      assign_fault_to(faults, cur->index, 0, S_A_1, temp, 0, prev_fault_sa1);
                     }
                     if(!prev_fault_sa0)
                     {
-                      assign_fault_to(cur, 0, S_A_1, temp, 0, prev_fault_sa0);
+                      assign_fault_to(faults, cur->index, 0, S_A_1, temp, 0, prev_fault_sa0);
                     }
                   }                   
                   else
                   {                    
-                    assign_fault(cur, 0, S_A_1, temp, 0); 
+                    assign_fault(faults, cur->index, 0, S_A_1, temp, 0); 
                   }                  
                 }
               }
@@ -644,16 +648,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                   {                    
                     if(!prev_fault_sa1)
                     {
-                      assign_fault_to(cur, 0, S_A_0, temp, 0, prev_fault_sa1);
+                      assign_fault_to(faults, cur->index, 0, S_A_0, temp, 0, prev_fault_sa1);
                     }
                     if(!prev_fault_sa0)
                     {
-                      assign_fault_to(cur, 0, S_A_0, temp, 0, prev_fault_sa0);
+                      assign_fault_to(faults, cur->index, 0, S_A_0, temp, 0, prev_fault_sa0);
                     }
                   }
                   else
                   {                    
-                    assign_fault(cur, 0, S_A_0, temp, 0); 
+                    assign_fault(faults, cur->index, 0, S_A_0, temp, 0); 
                   }
                 } 
               }
@@ -683,16 +687,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                 {                    
                   if(!prev_fault_sa1)
                   {
-                    assign_fault_to(cur, 1, S_A_1, temp, 0, prev_fault_sa1);
+                    assign_fault_to(faults, cur->index, 1, S_A_1, temp, 0, prev_fault_sa1);
                   }
                   if(!prev_fault_sa0)
                   {
-                    assign_fault_to(cur, 1, S_A_1, temp, 0, prev_fault_sa0);
+                    assign_fault_to(faults, cur->index, 1, S_A_1, temp, 0, prev_fault_sa0);
                   }
                 }                   
                 else
                 {                  
-                  assign_fault(cur, 1, S_A_1, temp, 0);
+                  assign_fault(faults, cur->index, 1, S_A_1, temp, 0);
                 }
               } 
             }
@@ -707,16 +711,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                 {                    
                   if(!prev_fault_sa1)
                   {
-                    assign_fault_to(cur, 1, S_A_0, temp, 0, prev_fault_sa1);
+                    assign_fault_to(faults, cur->index, 1, S_A_0, temp, 0, prev_fault_sa1);
                   }
                   if(!prev_fault_sa0)
                   {
-                    assign_fault_to(cur, 1, S_A_0, temp, 0, prev_fault_sa0);
+                    assign_fault_to(faults, cur->index, 1, S_A_0, temp, 0, prev_fault_sa0);
                   }
                 }
                 else
                 {                       
-                  assign_fault(cur, 1, S_A_0, temp, 0);    
+                  assign_fault(faults, cur->index, 1, S_A_0, temp, 0);    
                 }
               }
             }              
@@ -731,16 +735,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                 {                    
                   if(!prev_fault_sa1)
                   {
-                    assign_fault_to(cur, 1, S_A_1, temp, 0, prev_fault_sa1);
+                    assign_fault_to(faults, cur->index, 1, S_A_1, temp, 0, prev_fault_sa1);
                   }
                   if(!prev_fault_sa0)
                   {
-                    assign_fault_to(cur, 1, S_A_1, temp, 0, prev_fault_sa0);
+                    assign_fault_to(faults, cur->index, 1, S_A_1, temp, 0, prev_fault_sa0);
                   }
                 }                   
                 else
                 {                     
-                  assign_fault(cur, 1, S_A_1, temp, 0);
+                  assign_fault(faults, cur->index, 1, S_A_1, temp, 0);
                 }
               }          
             }
@@ -753,16 +757,16 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
                 {                    
                   if(!prev_fault_sa1)
                   {
-                    assign_fault_to(cur, 1, S_A_0, temp, 0, prev_fault_sa1);
+                    assign_fault_to(faults, cur->index, 1, S_A_0, temp, 0, prev_fault_sa1);
                   }
                   if(!prev_fault_sa0)
                   {
-                    assign_fault_to(cur, 1, S_A_0, temp, 0, prev_fault_sa0);
+                    assign_fault_to(faults, cur->index, 1, S_A_0, temp, 0, prev_fault_sa0);
                   }
                 }
                 else
                 {                       
-                  assign_fault(cur, 1, S_A_0, temp, 0);                 
+                  assign_fault(faults, cur->index, 1, S_A_0, temp, 0);                 
                 }
               }
             }
@@ -771,7 +775,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
             assert(0);
             break;            
         }      
-      }      
+      }           
     }
     
 #if (PRINT ==1)    
@@ -780,25 +784,28 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     for(i = 0; i < ckt->ngates; i++)
     {
       gate_t* cur = &ckt->gate[i];
-      printf("gate: %d (num_faulty: %d)\n", i, cur->num_faulty_gates);
-      for(j = 0; j < cur->num_faulty_gates; j++)
+      printf("gate: %d (num_faulty: %d)\n", i, faults_number[i]); 
+      for(j = 0; j < faults_number[i]; j++)
       {
-        printf("%d.%d/%d\n", cur->faulty_gates[j].gate_index, cur->faulty_gates[j].input_index, cur->faulty_gates[j].type);
+        printf("%d.%d/%d\n", (faults[i][j]).gate_index, (faults[i][j]).input_index, (faults[i][j]).type);
       }
     }    
 #endif    
     
     // check all 
     for(o = 0; o < ckt_npo; o++)
-    {
-      gate_t* out = &(ckt->gate[ckt->po[o]]);
-      for(f = out->num_faulty_gates - 1; f >= 0; f--)
+    {        
+      gate_t* out = &(ckt->gate[ckt->po[o]]);  
+      int gi = out->index;
+            
+      for(f = faults_number[out->index] - 1; f >= 0; f--)
       {
           fault_list_t* cur_fault = undetected_flist;
-          fault_list_t* prev_fault = NULL;
+          fault_list_t* prev_fault = NULL;          
+                    
           while(cur_fault != NULL)
           {
-            if(cur_fault->gate_index == out->faulty_gates[f].gate_index && cur_fault->input_index == out->faulty_gates[f].input_index && cur_fault->type == out->faulty_gates[f].type)
+            if(ID1((*cur_fault)) == ID1(faults[gi][f]))
             {              
               if(prev_fault == NULL){
                 undetected_flist = cur_fault->next;                
@@ -806,7 +813,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               else{
                 prev_fault->next = cur_fault->next;                         
               }              
-              faults_detected[ID1(out->faulty_gates[f])] = 1; // fault dropping             
+              faults_detected[ID1(faults[gi][f])] = 1; // fault dropping
             }   
             else
             {
@@ -821,9 +828,10 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
         break;
       }      
     }
-    
+   
   }
   }
   
+  //free(faults);
   return(undetected_flist);
 }

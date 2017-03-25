@@ -12,8 +12,7 @@
 #define MAX_GATES	     100000
 #define MAX_PO    		 2000
 #define MAX_PI	    	 2000
-#define MAX_FAULTS	     60000 //1000000
-#define MAX_FAULTSS      1000000
+#define MAX_FAULTS	     1000000
 
 #define ID_GATE_SHF      0
 #define ID_INPT_SHF      30
@@ -49,7 +48,6 @@ struct pattern_struct {
 
 typedef struct fault_list_struct fault_list_t;  /* linked list of faults */
 struct fault_list_struct {
-  int id;
   int gate_index;        /* index of gate where fault is */
   int input_index;       /* (== -1) if fault at gate output */
                          /* (>= 0)  points to gate input where the fault is */
@@ -69,8 +67,9 @@ struct gate_struct {
   int *fanout;                /* array of indices of fanout gates */
   int in_val[MAX_GATE_FANIN];     /* store input values of gate */
   int out_val;                    /* store output value of gate */  
-  fault_list_t faulty_gates[MAX_FAULTS]; /* faulty gate list */
-  int num_faulty_gates;
+// External as local vs. data
+//  fault_list_t faulty_gates[MAX_FAULTS]; /* faulty gate list */ 
+//  int num_faulty_gates; 
 };
 
 typedef struct circuit_struct circuit_t;
