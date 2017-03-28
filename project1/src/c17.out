@@ -7,10 +7,9 @@
 00110 -> 00
 
 List of Undetected Faults:
-Gate 22GAT(10) (NAND)- output, S_A_0
-Gate 23GAT(9) (NAND)- output, S_A_1
+Gate 22GAT(10) (PO)  - input0 (22GAT(10)), S_A_0
 
 Total Number of Faults = 38
-Number of Undetected Faults = 2
-Fault Coverage = 94.7%
+Number of Undetected Faults = 1
+Fault Coverage = 97.3%
 
