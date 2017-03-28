@@ -513,11 +513,7 @@ Gate [14192] (OR)  - input0 ([12606]), S_A_0
 Gate [14159] (NAND)- output, S_A_1
 Gate [14159] (NAND)- input0 ([6818]), S_A_1
 Gate 246(3110) (NAND)- input1 ([4667]), S_A_1
-Gate [3735] (AND) - output, S_A_1
-Gate [3735] (AND) - input1 ([13362]), S_A_1
-Gate [3735] (AND) - input0 ([13113]), S_A_1
 Gate [3740] (AND) - input0 ([13360]), S_A_1
-Gate [3707] (AND) - input0 ([13109]), S_A_1
 Gate [3712] (AND) - input0 ([13364]), S_A_1
 Gate 270(3109) (NAND)- input1 ([3161]), S_A_1
 Gate [2093] (AND) - output, S_A_0
@@ -610,14 +606,12 @@ Gate [4667] (AND) - output, S_A_1
 Gate [4667] (AND) - input1 ([13432]), S_A_1
 Gate [4667] (AND) - input0 ([13178]), S_A_1
 Gate [4672] (AND) - input0 ([13430]), S_A_1
-Gate [13362] (NAND)- output, S_A_1
 Gate [13362] (NAND)- input1 ([3767]), S_A_1
 Gate [13362] (NAND)- input0 ([3770]), S_A_1
 Gate [3739] (NOR) - input0 (254(2888)), S_A_0
 Gate [13360] (OR)  - output, S_A_1
 Gate [13360] (OR)  - input1 ([5915]), S_A_0
 Gate [13360] (OR)  - input0 ([5808]), S_A_0
-Gate [13366] (NAND)- output, S_A_1
 Gate [13366] (NAND)- input1 ([3723]), S_A_1
 Gate [13366] (NAND)- input0 ([3726]), S_A_1
 Gate [3711] (NOR) - input0 (260(2889)), S_A_0
@@ -814,10 +808,8 @@ Gate [5661] (NAND)- output, S_A_1
 Gate [5661] (NAND)- output, S_A_0
 Gate [5661] (NAND)- input1 ([12382]), S_A_1
 Gate [5661] (NAND)- input0 ([5660]), S_A_1
-Gate [13113] (OR)  - output, S_A_1
 Gate [13113] (OR)  - input1 ([6011]), S_A_0
 Gate [13113] (OR)  - input0 ([6010]), S_A_0
-Gate [13109] (OR)  - output, S_A_1
 Gate [13109] (OR)  - input1 ([6043]), S_A_0
 Gate [13109] (OR)  - input0 ([6042]), S_A_0
 Gate [3196] (AND) - output, S_A_1
@@ -1028,6 +1020,7 @@ Gate [2055] (AND) - output, S_A_1
 Gate [2055] (AND) - output, S_A_0
 Gate [2055] (AND) - input1 ([12650]), S_A_1
 Gate [2055] (AND) - input0 ([12382]), S_A_1
+Gate [5660] (NAND)- input0 ([12960]), S_A_1
 Gate [13518] (OR)  - input1 ([6228]), S_A_0
 Gate [13518] (OR)  - input0 ([12715]), S_A_0
 Gate [13396] (NAND)- input1 ([6228]), S_A_1
@@ -1116,11 +1109,10 @@ Gate [5751] (OR)  - output, S_A_0
 Gate [5751] (OR)  - input1 ([5750]), S_A_0
 Gate [5751] (OR)  - input0 ([5522]), S_A_0
 Gate 1151(2681) (AND) - input1 ([10073]), S_A_1
+Gate 1151(2681) (AND) - input0 ([5677]), S_A_1
 Gate [3767] (NOR) - output, S_A_1
-Gate [3767] (NOR) - output, S_A_0
 Gate [3767] (NOR) - input1 ([5852]), S_A_0
 Gate [3767] (NOR) - input0 ([5808]), S_A_0
-Gate [6011] (OR)  - output, S_A_1
 Gate [6011] (OR)  - output, S_A_0
 Gate [6011] (OR)  - input1 ([5852]), S_A_0
 Gate [6011] (OR)  - input0 ([5808]), S_A_0
@@ -1128,10 +1120,8 @@ Gate [6009] (OR)  - output, S_A_0
 Gate [6009] (OR)  - input1 ([6008]), S_A_0
 Gate [6009] (OR)  - input0 ([5963]), S_A_0
 Gate [3723] (NOR) - output, S_A_1
-Gate [3723] (NOR) - output, S_A_0
 Gate [3723] (NOR) - input1 ([5852]), S_A_0
 Gate [3723] (NOR) - input0 ([5808]), S_A_0
-Gate [6043] (OR)  - output, S_A_1
 Gate [6043] (OR)  - output, S_A_0
 Gate [6043] (OR)  - input1 ([5852]), S_A_0
 Gate [6043] (OR)  - input0 ([5808]), S_A_0
@@ -1202,6 +1192,7 @@ Gate [2058] (NOR) - output, S_A_0
 Gate [2058] (NOR) - input1 ([5750]), S_A_0
 Gate [2058] (NOR) - input0 ([5522]), S_A_0
 Gate [12800] (NAND)- input0 ([5701]), S_A_1
+Gate [12960] (NAND)- output, S_A_1
 Gate [12960] (NAND)- input0 ([5659]), S_A_1
 Gate [13370] (NAND)- input0 ([12956]), S_A_1
 Gate [6228] (OR)  - input0 (2563(2756)), S_A_0
@@ -2128,6 +2119,7 @@ Gate [5597] (NAND)- output, S_A_0
 Gate [5597] (NAND)- input1 ([4891]), S_A_1
 Gate [5597] (NAND)- input0 ([4896]), S_A_1
 Gate [5621] (OR)  - input0 (3435(2238)), S_A_0
+Gate [12153] (INV) - output, S_A_0
 Gate [1630] (AND) - input0 ([12224]), S_A_1
 Gate [6553] (NAND)- output, S_A_0
 Gate [6553] (NAND)- input1 ([1560]), S_A_1
@@ -2688,6 +2680,7 @@ Gate [11812] (OR)  - output, S_A_1
 Gate [11812] (OR)  - input1 ([5689]), S_A_0
 Gate [11812] (OR)  - input0 ([5688]), S_A_0
 Gate [4896] (AND) - output, S_A_1
+Gate [4896] (AND) - output, S_A_0
 Gate [4896] (AND) - input1 ([4895]), S_A_1
 Gate [4896] (AND) - input0 ([5578]), S_A_1
 Gate [5574] (NAND)- input1 ([5103]), S_A_1
@@ -2698,6 +2691,7 @@ Gate 3435(2238) (NOR) - input1 ([5613]), S_A_0
 Gate [5607] (NAND)- output, S_A_0
 Gate [5607] (NAND)- input1 ([12157]), S_A_1
 Gate [5607] (NAND)- input0 ([9789]), S_A_1
+Gate [5626] (NAND)- output, S_A_1
 Gate [5626] (NAND)- input1 ([4909]), S_A_1
 Gate [12242] (NAND)- output, S_A_1
 Gate [12242] (NAND)- input0 ([1644]), S_A_1
@@ -3461,6 +3455,7 @@ Gate [4891] (AND) - output, S_A_0
 Gate [4891] (AND) - input1 ([5595]), S_A_1
 Gate [4891] (AND) - input0 ([5591]), S_A_1
 Gate [4895] (AND) - output, S_A_1
+Gate [4895] (AND) - output, S_A_0
 Gate [4895] (AND) - input1 ([5586]), S_A_1
 Gate [4895] (AND) - input0 ([5582]), S_A_1
 Gate [5103] (AND) - output, S_A_1
@@ -3480,8 +3475,10 @@ Gate [5613] (NAND)- input0 ([5606]), S_A_1
 Gate [12157] (NAND)- output, S_A_1
 Gate [12157] (NAND)- input0 ([5606]), S_A_1
 Gate [4909] (AND) - output, S_A_1
+Gate [4909] (AND) - output, S_A_0
 Gate [4909] (AND) - input1 ([5614]), S_A_1
 Gate [4909] (AND) - input0 ([5606]), S_A_1
+Gate [4912] (AND) - output, S_A_0
 Gate [4912] (AND) - input0 ([5612]), S_A_1
 Gate [1633] (AND) - output, S_A_1
 Gate [1633] (AND) - output, S_A_0
@@ -4390,12 +4387,18 @@ Gate [9180] (INV) - output, S_A_1
 Gate [9180] (INV) - output, S_A_0
 Gate [5595] (NAND)- input0 ([10042]), S_A_1
 Gate [5591] (NAND)- input0 ([10032]), S_A_1
+Gate [5586] (NAND)- input0 ([10050]), S_A_1
+Gate [5582] (NAND)- input0 ([10034]), S_A_1
+Gate [5578] (NAND)- input0 ([10040]), S_A_1
+Gate [5572] (NAND)- input0 ([10024]), S_A_1
+Gate [5565] (NAND)- input0 ([10026]), S_A_1
 Gate [9858] (INV) - output, S_A_0
 Gate [5606] (NAND)- input0 ([10186]), S_A_1
 Gate [9795] (INV) - output, S_A_0
 Gate [5612] (NAND)- input0 ([10188]), S_A_1
 Gate [9805] (INV) - output, S_A_0
 Gate [5614] (NAND)- input0 ([10192]), S_A_1
+Gate [5623] (NAND)- input1 ([10565]), S_A_1
 Gate [9889] (INV) - output, S_A_0
 Gate [9871] (INV) - output, S_A_0
 Gate [5650] (NAND)- output, S_A_1
@@ -4696,6 +4699,7 @@ Gate [10481] (NAND)- input1 ([8086]), S_A_1
 Gate [10481] (NAND)- input0 ([6379]), S_A_1
 Gate [8933] (INV) - output, S_A_0
 Gate [8925] (INV) - output, S_A_0
+Gate [9723] (NAND)- input1 ([8252]), S_A_1
 Gate [9723] (NAND)- input0 ([5533]), S_A_1
 Gate [5536] (NAND)- output, S_A_0
 Gate [5536] (NAND)- input1 ([5535]), S_A_1
@@ -4709,6 +4713,7 @@ Gate 1152(1369) (AND) - input0 ([6523]), S_A_1
 Gate [5674] (OR)  - input0 (1462(168)), S_A_0
 Gate [5670] (OR)  - input0 (1469(169)), S_A_0
 Gate [5666] (OR)  - input0 (1480(170)), S_A_0
+Gate [9294] (OR)  - input0 (1486(171)), S_A_0
 Gate [5664] (OR)  - input0 (106(53)), S_A_0
 Gate [10096] (OR)  - output, S_A_1
 Gate [10090] (OR)  - output, S_A_1
@@ -4732,10 +4737,16 @@ Gate [5688] (NAND)- input0 ([5466]), S_A_1
 Gate [10308] (OR)  - input0 (2218(177)), S_A_0
 Gate [10042] (NAND)- output, S_A_1
 Gate [10042] (NAND)- input0 ([5594]), S_A_1
+Gate [10032] (OR)  - output, S_A_1
+Gate [10050] (NAND)- output, S_A_1
 Gate [10292] (OR)  - input0 (2230(179)), S_A_0
+Gate [10034] (NAND)- output, S_A_1
 Gate [10034] (NAND)- input0 ([5581]), S_A_1
 Gate [10306] (OR)  - input1 ([5577]), S_A_0
+Gate [10040] (NAND)- output, S_A_1
 Gate [10040] (NAND)- input1 (2224(178)), S_A_1
+Gate [10024] (OR)  - output, S_A_1
+Gate [10026] (OR)  - output, S_A_1
 Gate [9789] (NAND)- output, S_A_1
 Gate [9789] (NAND)- input0 ([5488]), S_A_1
 Gate [10553] (OR)  - input1 ([5601]), S_A_0
@@ -4755,6 +4766,7 @@ Gate [10192] (NAND)- output, S_A_1
 Gate [10192] (NAND)- input1 (4427(202)), S_A_1
 Gate [6559] (OR)  - input1 ([5618]), S_A_0
 Gate [6559] (OR)  - input0 ([5485]), S_A_0
+Gate [10565] (OR)  - output, S_A_1
 Gate [5656] (NAND)- output, S_A_1
 Gate [5656] (NAND)- input0 ([5491]), S_A_1
 Gate [5648] (NAND)- output, S_A_1
@@ -5151,6 +5163,7 @@ Gate [6379] (OR)  - output, S_A_1
 Gate [6379] (OR)  - input1 (577(631)), S_A_0
 Gate [5789] (NAND)- input1 ([8336]), S_A_1
 Gate [5793] (NAND)- input1 ([8334]), S_A_1
+Gate [8252] (INV) - output, S_A_1
 Gate [5594] (NAND)- input1 ([8368]), S_A_1
 Gate [5577] (NAND)- output, S_A_0
 Gate [5577] (NAND)- input1 ([8360]), S_A_1
@@ -5405,7 +5418,9 @@ Gate [8336] (NAND)- output, S_A_1
 Gate [8336] (NAND)- input0 ([8196]), S_A_1
 Gate [8334] (NAND)- output, S_A_1
 Gate [8334] (NAND)- input0 ([8194]), S_A_1
+Gate [8118] (NAND)- input1 (38(11)), S_A_1
 Gate [8118] (NAND)- input0 ([5532]), S_A_1
+Gate [5662] (NAND)- input1 (38(11)), S_A_1
 Gate [5662] (NAND)- input0 ([5534]), S_A_1
 Gate [6523] (OR)  - output, S_A_1
 Gate [6113] (NAND)- input1 (38(11)), S_A_1
@@ -5805,6 +5820,6 @@ Gate 237(160) (PI)  - output, S_A_0
 Gate 229(152) (PI)  - output, S_A_0
 
 Total Number of Faults = 11966
-Number of Undetected Faults = 5754
-Fault Coverage = 51.9%
+Number of Undetected Faults = 5769
+Fault Coverage = 51.7%
 
