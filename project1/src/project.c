@@ -4,6 +4,7 @@
 #include <assert.h>
 
 #define PRINT 0
+#define REDO 1
 
 /* Macro Definitions */
 
@@ -151,7 +152,8 @@
   
 #define ID1(cur) (cur.gate_index*6 + cur.type*3 + (cur.input_index + 1))
 #define ID2(gi, ct, ii) (gi*6 + ct*3 + (ii + 1))
-  
+
+#if (REDO == 1)
 #define assign_fault(faults, gi, io, saf, co, m)\
   { \
      if((gi - redo_gate)*6 + 6 >= MY_MAX_FAULTS && !redo) \
@@ -175,6 +177,20 @@
     { \
     } \
   }            
+#else
+#define assign_fault(faults, gi, io, saf, co, m) \
+  { \
+       fault_list_t* fault = &faults[gi][faults_number[gi]]; \
+        fault->gate_index = gi; \
+        fault->input_index = io; \
+        fault->type = saf; \
+        fault->next = NULL; \
+        fault->concur_out = co; \
+        fault->mark = m; \
+        faults_number[gi]++; \
+        print_assign_fault(saf); \
+  }
+#endif
 
 #define assign_fault_to(faults, gi, io, saf, co, m, append_to_me_ind)\
   { \
