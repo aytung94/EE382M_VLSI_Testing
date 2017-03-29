@@ -154,10 +154,9 @@
   
 #define assign_fault(faults, gi, io, saf, co, m)\
   { \
-     if(faults_number[gi] >= MY_MAX_FAULTS/2 && !redo) \
+     if((gi - redo_gate)*6 + 6 >= MY_MAX_FAULTS && !redo) \
      { \
-	printf("redo = 1"); \
-	redo = 1; \
+        redo = 1; \
         redo_gate = gi; \
      } \
      else if(!redo) \
@@ -174,7 +173,6 @@
     } \
     else \
     { \
-      printf("redo = 0"); \
     } \
   }            
 
@@ -351,7 +349,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     }
     else
     {
-      printf("clearing faults number bc redo");
+//      printf("clearing faults number bc redo");
       for(i = 0; i < ckt->ngates; i++){
         faults_number[i] = 0;}    
     }
@@ -390,7 +388,8 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     int g_int = 0;
 
     if(redo){
-      printf("redo %d, redo_gate %d", redo, redo_gate);
+//      printf("redo %d, redo_gate %d", redo, redo_gate);
+//      printf(".");
       g_int = redo_gate;
       redo = 0;
     }
@@ -469,7 +468,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
               {
 #if (PRINT == 1)
                 printf("+");
-#endif                  
+#endif                          
                 faults[cur->index][faults_number[cur->index]] = faults[inp0->index][fcount];       
                 faults[cur->index][faults_number[cur->index]].concur_out = temp;              
                 faults_number[cur->index]++;    
@@ -811,7 +810,9 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     {        
       gate_t* out = &(ckt->gate[ckt->po[o]]);  
       int gi = out->index;
-            
+      
+          
+
       for(f = faults_number[out->index] - 1; f >= 0; f--)
       {
           fault_list_t* cur_fault = undetected_flist;
@@ -845,6 +846,9 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
 
     if(redo){
       p--;
+    }
+    else{
+      redo_gate = 0;
     }
   } 
   }
