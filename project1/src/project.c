@@ -154,6 +154,14 @@
   
 #define assign_fault(faults, gi, io, saf, co, m)\
   { \
+     if(faults_number[gi] >= MY_MAX_FAULTS/2 && !redo) \
+     { \
+	printf("redo = 1"); \
+	redo = 1; \
+        redo_gate = gi; \
+     } \
+     else if(!redo) \
+     { \
         fault_list_t* fault = &(faults[gi][faults_number[gi]]); \
         fault->gate_index = gi; \
         fault->input_index = io; \
@@ -163,6 +171,11 @@
         fault->mark = m; \
         faults_number[gi]++; \
         print_assign_fault(saf); \
+    } \
+    else \
+    { \
+      printf("redo = 0"); \
+    } \
   }            
 
 #define assign_fault_to(faults, gi, io, saf, co, m, append_to_me_ind)\
@@ -214,9 +227,9 @@ the input patterns in pat.in[][].
 Return:  List of faults that remain undetected.
 
 *************************************************************************/
-#define MY_MAX_FAULTS 1000
+#define MY_MAX_FAULTS 650
 //fault_list_t faults[MAX_GATES][650];
-fault_list_t faults[38417][MY_MAX_FAULTS];
+fault_list_t faults[MAX_GATES][MY_MAX_FAULTS];
 
 fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
      circuit_t *ckt;
@@ -338,7 +351,7 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
     }
     else
     {
-//      printf("clearing faults number bc redo");
+      printf("clearing faults number bc redo");
       for(i = 0; i < ckt->ngates; i++){
         faults_number[i] = 0;}    
     }
@@ -374,20 +387,20 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       int inp1_fcount;   
     int o;
     int f;
-   
-    for(g = 0; g < ckt_ngates; g++)
+    int g_int = 0;
+
+    if(redo){
+      printf("redo %d, redo_gate %d", redo, redo_gate);
+      g_int = redo_gate;
+      redo = 0;
+    }
+
+    for(g = g_int; g < ckt_ngates; g++)
     {           
 
       // Check input gates for bad gate lists
       cur = &ckt->gate[g];
 
-/*      if(redo){
-      printf("redo %d, redo_gate %d", redo, redo_gate);
-        g = redo_gate;
-        cur = &ckt->gate[redo_gate]; 
-        redo = 0;
-      }*/
-      
 
 #if (PRINT == 1)       
       printf("Gate: %d\n", cur->index);
@@ -830,9 +843,9 @@ fault_list_t *three_val_fault_simulate(ckt,pat,undetected_flist)
       }      
     }
 
-//    if(redo){
-//      p--;
-//    }
+    if(redo){
+      p--;
+    }
   } 
   }
   
