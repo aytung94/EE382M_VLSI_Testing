@@ -375,7 +375,7 @@ three_val_fault_simulate(
                         case NAND:                          
                            if(fptr->type == S_A_1)
                            { 
-                               for(i = 0; i < 5 && collapsing_fptr != NULL; i++)
+                               for(i = 0; i < 4 && collapsing_fptr != NULL; i++)
                                {
                                     if(collapsing_fptr->gate_index != fptr->gate_index){
                                         break;
@@ -401,7 +401,7 @@ three_val_fault_simulate(
                         case OR:
                            if(fptr->type == S_A_1)
                            { 
-                               for(i = 0; i < 5 && collapsing_fptr != NULL; i++)
+                               for(i = 0; i < 4 && collapsing_fptr != NULL; i++)
                                {
                                     if(collapsing_fptr->gate_index != fptr->gate_index){
                                         break;
