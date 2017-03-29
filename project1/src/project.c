@@ -185,7 +185,7 @@ three_val_fault_simulate(
     int noFault       = FALSE;
 
 
-    for (p = 0; (p < pat->len); p++) {
+    for (p = 0; p < pat->len -1; p++) {
 
          // assign primary input values for pattern
         for (i = 0; i < ckt->npi; i++) {
