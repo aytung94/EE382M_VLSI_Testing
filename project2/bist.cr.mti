@@ -1,0 +1,17 @@
+{C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v} {1 {vlog -work work -stats=none {C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module TOP_ctl
+
+Top level modules:
+	TOP_ctl
+
+} {} {}} {C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v} {1 {vlog -work work -stats=none {C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module MUX21H
+-- Compiling module scan_dff
+-- Compiling module scan_cut
+
+Top level modules:
+	scan_cut
+
+} {} {}}

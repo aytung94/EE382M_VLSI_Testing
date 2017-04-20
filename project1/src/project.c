@@ -183,7 +183,7 @@ three_val_fault_simulate(
     fault_list_t *fptr, *prev_fptr, *collapsing_fptr;
     int detected_flag = FALSE;
     int noFault       = FALSE;
-
+    int count = 0;
 
     for (p = 0; p < pat->len; p++) {
 
@@ -329,6 +329,8 @@ three_val_fault_simulate(
             }  // end-if
 
             if (detected_flag) {
+                
+    fault_list_t* ptr = fptr;
                   // remove fault from undetected fault list
                 if (fptr == undetected_flist) {
                      // if first fault in fault list, advance head of list pointer
@@ -340,122 +342,55 @@ three_val_fault_simulate(
                     prev_fptr->next = fptr->next;
                 }
 
-// ALVIN'S CODE FAULT COLLAPSING              
-                if(fptr->input_index == -1)
-                {
-                    collapsing_fptr = fptr->next;
-                    switch(ckt->gate[fptr->gate_index].type)
-                    {
-                        case AND:
-                           if(fptr->type == S_A_0)
-                           { 
-                               for(i = 0; i < 5 && collapsing_fptr != NULL; i++)
-                               {
-                                    if(collapsing_fptr->gate_index != fptr->gate_index){
-                                        break;
-                                    }
-                                    else if(collapsing_fptr->input_index >= 0 && collapsing_fptr->type == S_A_0)
-                                    {
-                                        if (collapsing_fptr == undetected_flist) 
-                                        {
-                                            // if first fault in fault list, advance head of list pointer
-                                            undetected_flist = collapsing_fptr->next;
-                                            prev_fptr        = collapsing_fptr->next;
-                                        }                                   
-                                        else 
-                                        {
-                                            // if not first fault in fault list, then remove link
-                                            prev_fptr->next = collapsing_fptr->next;
-                                        }                                                         
-                                    }
-                                    collapsing_fptr = collapsing_fptr->next;
-                               }
-                           } 
-                        break;
-                        case NAND:                          
-                           if(fptr->type == S_A_1)
-                           { 
-                               for(i = 0; i < 4 && collapsing_fptr != NULL; i++)
-                               {
-                                    if(collapsing_fptr->gate_index != fptr->gate_index){
-                                        break;
-                                    }
-                                    else if(collapsing_fptr->input_index >= 0 && collapsing_fptr->type == S_A_0)
-                                    {
-                                        if (collapsing_fptr == undetected_flist) 
-                                        {
-                                            // if first fault in fault list, advance head of list pointer
-                                            undetected_flist = collapsing_fptr->next;
-                                            prev_fptr        = collapsing_fptr->next;
-                                        }                                   
-                                        else 
-                                        {
-                                            // if not first fault in fault list, then remove link
-                                            prev_fptr->next = collapsing_fptr->next;
-                                        }                                                         
-                                    }
-                                    collapsing_fptr = collapsing_fptr->next;
-                               }
-                           }                             
-                        break;
-                        case OR:
-                           if(fptr->type == S_A_1)
-                           { 
-                               for(i = 0; i < 4 && collapsing_fptr != NULL; i++)
-                               {
-                                    if(collapsing_fptr->gate_index != fptr->gate_index){
-                                        break;
-                                    }
-                                    else if(collapsing_fptr->input_index >= 0 && collapsing_fptr->type == S_A_1)
-                                    {
-                                        if (collapsing_fptr == undetected_flist) 
-                                        {
-                                            // if first fault in fault list, advance head of list pointer
-                                            undetected_flist = collapsing_fptr->next;
-                                            prev_fptr        = collapsing_fptr->next;
-                                        }                                   
-                                        else 
-                                        {
-                                            // if not first fault in fault list, then remove link
-                                            prev_fptr->next = collapsing_fptr->next;
-                                        }                                                         
-                                    }
-                                    collapsing_fptr = collapsing_fptr->next;
-                               }
-                           }                            
-                        break;
-                        case NOR:
-                           if(fptr->type == S_A_0)
-                           { 
-                               for(i = 0; i < 5 && collapsing_fptr != NULL; i++)
-                               {
-                                    if(collapsing_fptr->gate_index != fptr->gate_index){
-                                        break;
-                                    }
-                                    else if(collapsing_fptr->input_index >= 0 && collapsing_fptr->type == S_A_1)
-                                    {
-                                        if (collapsing_fptr == undetected_flist) 
-                                        {
-                                            // if first fault in fault list, advance head of list pointer
-                                            undetected_flist = collapsing_fptr->next;
-                                            prev_fptr        = collapsing_fptr->next;
-                                        }                                   
-                                        else 
-                                        {
-                                            // if not first fault in fault list, then remove link
-                                            prev_fptr->next = collapsing_fptr->next;
-                                        }                                                         
-                                    }
-                                    collapsing_fptr = collapsing_fptr->next;
-                               }
-                           }                            
-                        break;
-                        default:
-                        break;
-                    }
-                }
-
                 detected_flag = FALSE;
+                
+                    
+    count++;
+    printf("Gate %s ",ckt->gate[ptr->gate_index].name);
+    switch (ckt->gate[ptr->gate_index].type) {
+    case AND:
+      printf("(AND) ");
+      break;
+    case OR:
+      printf("(OR)  ");
+      break;
+    case NAND:
+      printf("(NAND)");
+      break;
+    case NOR:
+      printf("(NOR) ");
+      break;
+    case INV:
+      printf("(INV) ");
+      break;
+    case BUF:
+      printf("(BUF) ");
+      break;
+    case PO:
+      printf("(PO)  ");
+      break;
+    case PI:
+      printf("(PI)  ");
+      break;
+    case PO_GND:
+      printf("(PO_GND)");
+      break;
+    case PO_VCC:
+      printf("(PO_VCC)");
+      break;
+    default:
+      printf("(UNKNOWN)");
+      break;
+    }
+    if ( ptr->input_index < 0 ) {
+      printf("- output, ");
+    }
+    else {
+      printf("- input%d (%s), ",ptr->input_index,
+         ckt->gate[ckt->gate[ptr->gate_index].fanin[ptr->input_index]].name);
+    }
+    printf("%s\n",(ptr->type == S_A_0) ? "S_A_0" : "S_A_1");
+                
             }
             else {
                  // fault remains undetected, keep on list
@@ -464,6 +399,8 @@ three_val_fault_simulate(
         }  // end-for
     }  // end-for
 
+
+printf("\n\n num faults: %d\n", count);
     return(undetected_flist);
 
 }

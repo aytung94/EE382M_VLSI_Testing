@@ -1,0 +1,204 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/MS
+vbist_hardware
+Z0 !s110 1492722152
+!i10b 1
+!s100 4E7BCHF=0]9<=KRF=KPM`1
+I[kMOG`iEQKHhLeiO:a4ZN2
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2
+Z3 w1492722137
+Z4 8C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v
+Z5 FC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v
+L0 59
+Z6 OP;L;10.4a;61
+r1
+!s85 0
+31
+Z7 !s108 1492722152.000000
+Z8 !s107 C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v|
+Z9 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v|
+!s101 -O0
+!i113 1
+Z10 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+vchip
+R0
+!i10b 1
+!s100 3YAVDPYk>HbKANC4[mZIe1
+ISPzk7Q=Oi:aRSI[2H4O6A3
+R1
+R2
+R3
+R4
+R5
+L0 244
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 1
+R10
+vLFSR
+!s110 1492639879
+!i10b 1
+!s100 GH`[AmNT4caHc;i]n>5:j1
+I^J>7Pg<l6jn8MU@Ebf?Pg3
+R1
+R2
+w1492639339
+R4
+R5
+L0 1
+R6
+r1
+!s85 0
+31
+!s108 1492639879.000000
+R8
+R9
+!s101 -O0
+!i113 1
+R10
+n@l@f@s@r
+vLFSR_hardware
+R0
+!i10b 1
+!s100 ]>ZGaLZj8FldiZeX:5=[D0
+Ibk:N<Za0RR?G_HAodAYnR3
+R1
+R2
+R3
+R4
+R5
+L0 1
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 1
+R10
+n@l@f@s@r_hardware
+vMUX21H
+R0
+!i10b 1
+!s100 @S>OlYk127VD1?NT3PV;P1
+IogNT<DB<[g^Mzc>ki9Gg@3
+R1
+R2
+Z11 w1492573901
+Z12 8C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v
+Z13 FC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v
+L0 8
+R6
+r1
+!s85 0
+31
+R7
+Z14 !s107 C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v|
+Z15 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v|
+!s101 -O0
+!i113 1
+R10
+n@m@u@x21@h
+vscan_cut
+R0
+!i10b 1
+!s100 c0QTB5AUR>KSN3^cZK^7W2
+IQXULZ5]VkX4Q6kB@UTb@80
+R1
+R2
+R11
+R12
+R13
+L0 44
+R6
+r1
+!s85 0
+31
+R7
+R14
+R15
+!s101 -O0
+!i113 1
+R10
+vscan_dff
+R0
+!i10b 1
+!s100 j35cgNZ85aa4QWX9`i0hV0
+I;IRYBDnOLB?K>S8[=f]CG3
+R1
+R2
+R11
+R12
+R13
+L0 22
+R6
+r1
+!s85 0
+31
+R7
+R14
+R15
+!s101 -O0
+!i113 1
+R10
+vSIG_hardware
+R0
+!i10b 1
+!s100 SKSj0z>K[@zTNK]maz<aH1
+I=XdX]HKJ[IBd;1@ziTE`L0
+R1
+R2
+R3
+R4
+R5
+L0 26
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!s101 -O0
+!i113 1
+R10
+n@s@i@g_hardware
+vTOP_ctl
+R0
+!i10b 1
+!s100 UHfEPggNEH8@goKGgQ:;H0
+I[Vf>;J4P@X_<maW3U<haF2
+R1
+R2
+w1492573894
+8C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v
+FC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v
+L0 7
+R6
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v|
+!s101 -O0
+!i113 1
+R10
+n@t@o@p_ctl
