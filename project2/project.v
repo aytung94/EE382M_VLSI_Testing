@@ -78,7 +78,7 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
   wire [15:0] LFSR;  
   reg nextLFSR;
   reg resetLFSR;
-  LFSR_hardware lfsr_hw(LFSR, nextLFSR, 0, resetLFSR);
+  LFSR_hardware lfsr_hw(LFSR, nextLFSR, 1'b0, resetLFSR);
   
   wire [15:0] SIG;
   reg nextSIG;  
@@ -111,15 +111,16 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
     cut_sdi <= cut_sdi;
     case (state)
       0: begin
-           nextState <= 1;
-           nextCounter <= 0;
-           nextPattern <= 0;
-           nextLFSR <= 0;  
-           nextSIG <= 0;
-           bistpass <= 0;
-           bistdone <= 0;
-           resetLFSR <= 0;
-           resetSIG <= 0;
+         nextState <= 1;
+         nextCounter <= 0;
+         nextPattern <= 0;
+         nextLFSR <= 0;  
+         nextSIG <= 0;
+         bistpass <= 0;
+         bistdone <= 0;
+         resetLFSR <= 0;
+         resetSIG <= 0;
+         cut_scanmode <= 0;               
          end
       1: begin
         if(counter < 227)
@@ -183,13 +184,15 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
         begin
           bistpass <= 0;   
         end
+          cut_scanmode <= 0;            
         end
       6: begin
-          // do nothing	
-          nextState <= 0;
-          resetLFSR <= 1;
-          resetSIG <= 1;   
-          bistdone <= 0;
+        // do nothing	
+        nextState <= 0;
+        resetLFSR <= 1;
+        resetSIG <= 1;   
+        bistdone <= 0;
+        cut_scanmode <= 0;              
         end
       default:begin
 	    // do nothing
