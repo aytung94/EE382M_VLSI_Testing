@@ -244,6 +244,12 @@ initial begin
    $write( "\nInjecting No Fault into CUT:  Fault-Free BIST Simulation\n" );
    dobist;
    
+   force testchip.circuit.n167gat = 1;
+   $write( "\nInjecting Fault into CUT:  testchip.circuit.II4759 = 0\n " );
+   faults = faults+1;
+   dobist;
+   release testchip.circuit.n167gat;   
+   
    $write("\nInjected %d faults\n", faults);
    $write("Detected %d faults\n", detected_faults);
 

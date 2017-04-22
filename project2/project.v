@@ -190,10 +190,11 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
         nextState <= 6; 
         nextCounter <= 0;
         nextPattern <= 0;     
+        $write( "SISR: 0x%h vs. 0xaa80\n", SISR);          
         _bistdone <= 1;      
         _cut_scanmode <= 0;                    
         if(SISR == 16'hAA80) // SISR == hard coded value
-        begin
+        begin        
           _bistpass <= 1;          
         end
         else
@@ -236,14 +237,14 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
       if(bistdone == 1)
       begin
         test = 0;
-        if(bistpass == 1)
+/*        if(bistpass == 1)
         begin
           $write( "SISR: 0x%h === 0xaa80\n", SISR);        
         end
         else
         begin
           $write( "SISR: 0x%h =\= 0xaa80\n", SISR);        
-        end
+        end*/
       end
     end
   end
