@@ -200,6 +200,8 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
         begin
           _bistpass <= 0;   
         end
+        resetLFSR <= 1;
+        resetSISR <= 1;         
         end
       6: begin // wait to restart
         // do nothing	
