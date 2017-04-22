@@ -199,9 +199,7 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
         else
         begin
           _bistpass <= 0;   
-        end
-        resetLFSR <= 1;
-        resetSISR <= 1;         
+        end        
         end
       6: begin // wait to restart
         // do nothing	
@@ -229,6 +227,8 @@ module bist_hardware(clk,rst,bistmode,bistdone,bistpass,cut_scanmode,
       begin
         test = 0;
       end
+      nextState = 6;      
+      _bistdone = 0;
     end
     else
     begin
