@@ -9,13 +9,13 @@ z2
 cModel Technology
 dC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/MS
 vbist_hardware
-Z0 !s110 1492722152
+Z0 !s110 1492831604
 !i10b 1
-!s100 4E7BCHF=0]9<=KRF=KPM`1
-I[kMOG`iEQKHhLeiO:a4ZN2
+!s100 kLmAaLnfOMUmkJlPNmnX41
+I0I3ciXzkM9Q_d=OQV:0F13
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2
-Z3 w1492722137
+Z3 w1492831099
 Z4 8C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v
 Z5 FC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v
 L0 59
@@ -23,7 +23,7 @@ Z6 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z7 !s108 1492722152.000000
+Z7 !s108 1492831604.000000
 Z8 !s107 C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v|
 Z9 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v|
 !s101 -O0
@@ -32,14 +32,14 @@ Z10 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 vchip
 R0
 !i10b 1
-!s100 3YAVDPYk>HbKANC4[mZIe1
-ISPzk7Q=Oi:aRSI[2H4O6A3
+!s100 [Il=S2`X_UG0el0zibGdT0
+IL0z:Mf>40R3`Yn@ojKdIb1
 R1
 R2
 R3
 R4
 R5
-L0 244
+L0 262
 R6
 r1
 !s85 0
@@ -75,8 +75,8 @@ n@l@f@s@r
 vLFSR_hardware
 R0
 !i10b 1
-!s100 ]>ZGaLZj8FldiZeX:5=[D0
-Ibk:N<Za0RR?G_HAodAYnR3
+!s100 9c]ZTblc1D3SOL>hC:e=E1
+Ikh3T0[:c`BzkD=zcQOU[Z1
 R1
 R2
 R3
@@ -159,16 +159,38 @@ R15
 !i113 1
 R10
 vSIG_hardware
-R0
+!s110 1492722152
 !i10b 1
 !s100 SKSj0z>K[@zTNK]maz<aH1
 I=XdX]HKJ[IBd;1@ziTE`L0
 R1
 R2
+w1492722137
+R4
+R5
+Z16 L0 26
+R6
+r1
+!s85 0
+31
+!s108 1492722152.000000
+R8
+R9
+!s101 -O0
+!i113 1
+R10
+n@s@i@g_hardware
+vSISR_hardware
+R0
+!i10b 1
+!s100 b?5gk4UFilU35n;5C0Nei2
+ImSANU@DPzDLN^KBE2F4^^3
+R1
+R2
 R3
 R4
 R5
-L0 26
+R16
 R6
 r1
 !s85 0
@@ -179,7 +201,7 @@ R9
 !s101 -O0
 !i113 1
 R10
-n@s@i@g_hardware
+n@s@i@s@r_hardware
 vTOP_ctl
 R0
 !i10b 1
@@ -187,7 +209,7 @@ R0
 I[Vf>;J4P@X_<maW3U<haF2
 R1
 R2
-w1492573894
+w1492827858
 8C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v
 FC:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v
 L0 7
