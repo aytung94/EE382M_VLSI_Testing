@@ -1,0 +1,672 @@
+
+*** Running vivado
+    with args -log TOP_ctl.vds -m64 -mode batch -messageDb vivado.pb -notrace -source TOP_ctl.tcl
+
+WARNING: Default location for XILINX_VIVADO_HLS not found: 
+
+****** Vivado v2015.2 (64-bit)
+  **** SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+  **** IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source TOP_ctl.tcl -notrace
+Command: synth_design -top TOP_ctl -part xc7k70tfbg484-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 247.637 ; gain = 73.867
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'TOP_ctl' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:7]
+	Parameter cycle bound to: 100 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'chip' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:272]
+INFO: [Synth 8-638] synthesizing module 'scan_cut' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:44]
+INFO: [Synth 8-638] synthesizing module 'scan_dff' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:22]
+INFO: [Synth 8-256] done synthesizing module 'scan_dff' (1#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:22]
+INFO: [Synth 8-638] synthesizing module 'MUX21H' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:8]
+INFO: [Synth 8-256] done synthesizing module 'MUX21H' (2#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:8]
+INFO: [Synth 8-256] done synthesizing module 'scan_cut' (3#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/scan_cut.v:44]
+INFO: [Synth 8-638] synthesizing module 'bist_hardware' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:59]
+INFO: [Synth 8-638] synthesizing module 'LFSR_hardware' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:1]
+INFO: [Synth 8-256] done synthesizing module 'LFSR_hardware' (4#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:1]
+INFO: [Synth 8-638] synthesizing module 'SISR_hardware' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:26]
+INFO: [Synth 8-256] done synthesizing module 'SISR_hardware' (5#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:26]
+INFO: [Synth 8-256] done synthesizing module 'bist_hardware' (6#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:59]
+INFO: [Synth 8-256] done synthesizing module 'chip' (7#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:272]
+WARNING: [Synth 8-85] always block has no event control specified [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:88]
+WARNING: [Synth 8-3848] Net _pi in module/entity TOP_ctl does not have driver. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:15]
+WARNING: [Synth 8-3848] Net _rst in module/entity TOP_ctl does not have driver. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:17]
+WARNING: [Synth 8-3848] Net _bistmode in module/entity TOP_ctl does not have driver. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:18]
+INFO: [Synth 8-256] done synthesizing module 'TOP_ctl' (8#1) [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:7]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 300.605 ; gain = 126.836
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin testchip:rst to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[34] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[33] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[32] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[31] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[30] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[29] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[28] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[27] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[26] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[25] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[24] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[23] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[22] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[21] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[20] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[19] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[18] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[17] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[16] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[15] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[14] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[13] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[12] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[11] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[10] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[9] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[8] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[7] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[6] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[5] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[4] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[3] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[2] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[1] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:pi[0] to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+WARNING: [Synth 8-3295] tying undriven pin testchip:bistmode to constant 0 [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/testbench.v:66]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 300.605 ; gain = 126.836
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7k70tfbg484-2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc]
+WARNING: [Vivado 12-584] No ports matched 'wbClk'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:2]
+CRITICAL WARNING: [Vivado 12-1387] No valid object(s) found for create_clock constraint with option '-objects [get_ports wbClk]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:2]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+WARNING: [Vivado 12-584] No ports matched 'bftClk'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:3]
+CRITICAL WARNING: [Vivado 12-1387] No valid object(s) found for create_clock constraint with option '-objects [get_ports bftClk]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:3]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[23]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:8]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:8]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[9]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:9]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:9]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[18]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:10]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:10]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[4]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:11]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:11]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[22]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:12]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:12]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[8]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:13]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:13]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[31]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:14]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:14]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[17]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:15]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:15]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[3]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:16]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:16]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[21]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:17]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:17]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[7]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:18]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:18]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[30]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:19]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:19]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[16]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:20]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:20]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[2]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:21]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:21]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[20]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:22]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:22]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[6]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:23]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:23]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[29]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:24]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:24]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[15]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:25]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:25]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[1]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:26]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:26]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[19]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:27]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:27]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[5]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:28]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:28]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbClk'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:29]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:29]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[28]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:30]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:30]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[14]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:31]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:31]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[0]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:32]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:32]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[18]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:33]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:33]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'bftClk'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:34]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:34]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[4]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:35]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:35]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[27]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:36]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:36]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[13]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:37]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:37]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[31]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:38]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:38]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'reset'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:39]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:39]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[17]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:40]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:40]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[3]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:41]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:41]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[26]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:42]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:42]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[12]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:43]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:43]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[30]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:44]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:44]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbDataForInput'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:45]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:45]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[16]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:46]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:46]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[2]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:47]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:47]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[25]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:48]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:48]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[11]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:49]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:49]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbWriteOut'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:50]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:50]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[29]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:51]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:51]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[15]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:52]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:52]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[1]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:53]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:53]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[24]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:54]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:54]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[10]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:55]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:55]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbDataForOutput'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:56]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:56]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[28]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:57]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:57]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[14]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:58]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:58]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[0]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:59]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:59]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[23]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:60]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:60]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'error'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:61]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:61]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[9]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:62]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:62]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[27]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:63]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:63]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[13]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:64]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:64]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[22]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:65]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:65]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[8]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:66]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:66]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[26]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:67]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:67]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[12]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:68]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:68]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[21]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:69]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:69]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[7]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:70]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:70]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[25]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:71]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:71]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[11]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:72]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:72]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[20]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:73]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:73]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[6]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:74]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:74]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[24]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:75]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:75]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbOutputData[10]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:76]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:76]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[19]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:77]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:77]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'wbInputData[5]'. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:78]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:78]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:80]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc:81]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.srcs/constrs_1/imports/xc7k70tfbg484-2/bft_full.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 591.348 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k70tfbg484-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "_bistpass" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-327] inferring latch for variable '_bistdone_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:95]
+WARNING: [Synth 8-327] inferring latch for variable '_bistpass_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:96]
+WARNING: [Synth 8-327] inferring latch for variable '_cut_scanmode_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:97]
+WARNING: [Synth 8-327] inferring latch for variable '_cut_sdi_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:98]
+WARNING: [Synth 8-327] inferring latch for variable 'nextState_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:120]
+WARNING: [Synth 8-327] inferring latch for variable 'nextSISR_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:128]
+WARNING: [Synth 8-327] inferring latch for variable 'resetLFSR_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:127]
+WARNING: [Synth 8-327] inferring latch for variable 'nextCounter_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:121]
+WARNING: [Synth 8-327] inferring latch for variable 'nextPattern_reg' [C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project.v:134]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     11 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
++---XORs : 
+	   5 Input      1 Bit         XORs := 2     
++---Registers : 
+	                1 Bit    Registers := 228   
++---Muxes : 
+	   8 Input     11 Bit        Muxes := 1     
+	   8 Input     10 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   9 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 229   
+	   8 Input      1 Bit        Muxes := 9     
+	   9 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module scan_dff 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module LFSR_hardware 
+Detailed RTL Component Info : 
++---XORs : 
+	   5 Input      1 Bit         XORs := 1     
+Module SISR_hardware 
+Detailed RTL Component Info : 
++---XORs : 
+	   5 Input      1 Bit         XORs := 1     
+Module bist_hardware 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     11 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   8 Input     11 Bit        Muxes := 1     
+	   8 Input     10 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   9 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   8 Input      1 Bit        Muxes := 9     
+	   9 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+Start Cross Boundary Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+Finished Parallel Reinference  : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 591.348 ; gain = 417.578
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[15] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[14] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[13] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[12] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[11] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[10] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/lfsr_hw/lfsr_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[15] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[14] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[13] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[12] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[11] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[10] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/sisr_hw/sisr_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/_bistdone_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/_bistdone_reg__0 ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/_bistpass_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/_cut_scanmode_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/_cut_sdi_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/state_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/state_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/state_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[2]__0 ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[1]__0 ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextState_reg[0]__0 ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextSISR_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/resetLFSR_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/counter_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[10] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/pattern_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextCounter_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[10] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[9] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[8] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[7] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[6] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[5] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[4] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[3] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[2] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[1] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/nextPattern_reg[0] ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/bist/test_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_104/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_105/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_106/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_107/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_108/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_109/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_110/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_111/state_reg ) is unused and will be removed from module TOP_ctl.
+WARNING: [Synth 8-3332] Sequential element (\testchip/circuit/DFF_PIPO_112/state_reg ) is unused and will be removed from module TOP_ctl.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Start Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 591.348 ; gain = 417.578
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++-+-----+------+
+| |Cell |Count |
++-+-----+------+
++-+-----+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |     0|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 326 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:26 . Memory (MB): peak = 591.348 ; gain = 107.055
+Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 591.348 ; gain = 417.578
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+27 Infos, 223 Warnings, 75 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 591.348 ; gain = 398.922
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 591.348 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 25 23:04:14 2017...

@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Tue Apr 25 23:03:38 2017
+# Process ID: 6256
+# Log file: C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.runs/synth_1/TOP_ctl.vds
+# Journal file: C:/Users/alvin/Documents/UT Austin/Senior 2.0/VLSI_Testing/project2/project_2_vivado/project_2_vivado.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source TOP_ctl.tcl -notrace
